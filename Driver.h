@@ -4,22 +4,21 @@
 #include <stdexcept>
 #include <iostream>
 #include "Order.h"
-#include <list>
+#include <queue>
 
 using namespace std;
 
 class Driver{
     public:
-    Driver();
-    void login(string Drivername);
-    void logout();
-    void CreateOrder(Time myTime, string TheInfo);
+    Driver(); //Constructor Initialises the varaiables
+    void login(string DriverName); //Logs the user in (Works with any name)
+    void logout(); //Logouts the user name
+    void CreateOrder(int NewHour, int NewMinute, string TheInfo); // Creates an Order and inserts the order intyo the Queue
     void depart() throw(logic_error);
     void deliver() throw(logic_error);
     void arrive() throw(logic_error);
     private:
-    //list<Order> myOrder;
-    Order myOrder[13];
+    queue<Order> myOrders; //Queue of orders
     string myDriver;
     int orderStatus;
     //shows the status of the order
@@ -38,12 +37,8 @@ myDriver = "";
 void Driver::login(string DriverName)
 {
 myDriver= DriverName;
-}
+};
 
-void Driver::logout()
-{
-
-}
 
 void Driver:: depart() throw(logic_error)
 /*
@@ -78,10 +73,12 @@ void Driver:: arrive() throw(logic_error)
     orderStatus = 3;
 }
 
-void Driver::CreateOrder(Time myTime, string TheInfo){
-Order newOrder(myTime, TheInfo);
-myOrder[1] = newOrder;
-}
+void Driver::CreateOrder(int NewHour, int NewMinute, string TheInfo){
+Time myTime; //The time variable
+Order newOrder(myTime, TheInfo); //Creates Order with a default time
+newOrder.setTime(NewHour, NewMinute); //Sets the new Time
+myOrders.push(newOrder); //Adds to the Queue
 
+}
 
 #endif
