@@ -4,39 +4,40 @@
 #include <stdexcept>
 #include <iostream>
 #include "Order.h"
-#include <list>
+#include <queue>
 
 using namespace std;
 
 class Driver{
     public:
-    Driver();
-    void login(string Drivername);
-    void logout();
-    void CreateOrder(Time myTime, string TheInfo);
+    Driver(); //Constructor Initialises the varaiables
+    void login(); //Logs the user in (Works with any name)
+    void logout(); //Logouts the user name
+    void CreateOrder(int NewHour, int NewMinute, string TheInfo); // Creates an Order and inserts the order in
+
     private:
-    //list<Order> myOrder;
-    Order myOrder[13];
-    string myDriver;
+    queue<Order> myOrders; //Queue of orders
 
 };
 
 Driver::Driver(){
-myDriver = "";
+
+
 }
 
-void Driver::login(string DriverName){
-myDriver= DriverName;
+void Driver::login(){
+
 }
 
 void Driver::logout(){
 
 }
 
-void Driver::CreateOrder(Time myTime, string TheInfo){
-Order newOrder(myTime, TheInfo);
-myOrder[1] = newOrder;
+void Driver::CreateOrder(int NewHour, int NewMinute, string TheInfo){
+Time myTime; //The time variable
+Order newOrder(myTime, TheInfo); //Creates Order with a default time
+newOrder.setTime(NewHour, NewMinute); //Sets the new Time
+myOrders.push(newOrder); //Adds to the Queue
 }
-
 
 #endif

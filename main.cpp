@@ -21,22 +21,17 @@ int Commander(Driver myDriver){
     string cmd;
     cout << " Command: ";
     getline(cin, cmd);
-    int blackspace = cmd.find_first_of(" ");
+    int blankspace = cmd.find_first_of(" ");
 
     if(cmd == "Quit" || cmd == "quit"){
         return 0; //Exits cleanly
-    }else if(cmd == "Time" || cmd=="time"){
-
-        Commander(myDriver); //Returns to command line
-    }else if(cmd.substr(0, blackspace) == "order "){
-        blackspace = cmd.find_first_of(":"); //
-        Time timeMan;
-        timeMan.setTime(stoi(cmd.substr(blackspace-3, blackspace-1)), stoi(cmd.substr(blackspace+1, blackspace+3)));
-        myDriver.CreateOrder(timeMan," Test");
+    }else if(cmd.substr(0, blankspace) == "order"){
+        blankspace = cmd.find_first_of(":"); // Gets the index of the colon
+        int myHour = stoi(cmd.substr(blankspace-3, blankspace-1)); //Gets the value of the hour
+        int myMinute = stoi(cmd.substr(blankspace+1, blankspace+3)); //Gets the value of the minute
+        myDriver.CreateOrder(myHour, myMinute, cmd.substr(blankspace+4)); //Creates an Ordr object with the specified Info, hour and minute
         Commander(myDriver);
-    } else if(cmd == "print order"){
-    Commander(myDriver);
-    }else{
+    } else{
     Commander(myDriver);
     }
 }
