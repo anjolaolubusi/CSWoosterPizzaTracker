@@ -1,37 +1,110 @@
 #include <iostream>
+#include <string>
+#include <algorithm>
 #include "Driver.h"
 
 using namespace std;
 
-int Commander(Driver myDriver);
-
+int CommandInput(Driver myDriver);
+void commands_list();
 
 int main()
 {
-    Driver myDriver;
+    Driver myDriver;//This creates a default driver named myDriver
+    /**
+     Pre Conditions: None
+     Post: None
 
-    Commander(myDriver);
+     This method prints out all of the commands available to the user
+     It then asks the user if they would like an example of how to enter a command
+    */
+    commands_list();
+    /**
+      pre: A string has been entered into the terminal
+      post: It calls the method associated to the command entered.
+
+      This method asks the user to enter the command they would lie to use than
+      makes a call to the associated method
+    */
+    CommandInput(myDriver);
+}
+
+//Hello there
+
+void commands_list(){
+    cout << "Here is the list of commands you can enter:\nLogin <DriverName>"
+            "\nLogout <DriverName>\nOrder <Time> <Order Info>\nDepart <Time> <DriverName>"
+            "\nDeliver <Time> <DriverName> <tip>\nServe <Time>\nArrive <Time> <DriverName>"
+            "\nStatus\nSummary\nHelp\nQuit\n" << endl;
+    cout << "Would you like to see examples? Yes or No: ";
+
+    string cmd;
+    getline(cin, cmd);
+    transform(cmd.begin(), cmd.end(), cmd.begin(), ::tolower);
+    if (cmd == "yes"){
+        cout << "Here is an example of the ORDER function\n"
+                "ORDER TIME QUANTITY TYPE ADDRESS\n"
+                "order 9:55 2 veggie to 100 Liberty\n"
+                "----------------------------------\n"
+                "order 0:02 1 cheese 1 breadsticks "
+                "to 123 Holden Hall\n" << endl;
+    }
 }
 
 //Command line function:
 /**
-The idea is you would input a string and the compiler would scan the string for a command it recongize
-**/
-int Commander(Driver myDriver){
+      pre: A string has been entered into the terminal
+      post: It calls the method associated to the command entered.
+
+      This method asks the user to enter the command they would lie to use than
+      makes a call to the associated method
+*/
+int CommandInput(Driver myDriver){
     string cmd;
+    Time timeMan;
     cout << " Command: ";
     getline(cin, cmd);
-    int blankspace = cmd.find_first_of(" ");
+    transform(cmd.begin(), cmd.end(), cmd.begin(), ::tolower);
+    int blackspace = cmd.find_first_of(" ");
 
-    if(cmd == "Quit" || cmd == "quit"){
+    if (cmd.substr(0,blackspace) == "login"){
+
+        myDriver.login()
+    }
+    else if (cmd.substr(0,blackspace) == "logout"){
+
+    }
+    else if(cmd.substr(0, blackspace) == "order"){
+        blackspace = cmd.find_first_of(":");
+        timeMan.setTime(stoi(cmd.substr(blackspace-3, blackspace-1)), stoi(cmd.substr(blackspace+1, blackspace+3)));
+        myDriver.CreateOrder(timeMan," Test");
+        CommandInput(myDriver);
+    }
+    else if (cmd.substr(0,blackspace) == "depart") {
+
+    }
+    else if (cmd.substr(0,blackspace) == "deliver") {
+
+    }
+    else if (cmd.substr(0,blackspace) == "serve") {
+
+    }
+    else if (cmd.substr(0,blackspace) == "arrive") {
+
+    }
+    else if (cmd.substr(0,blackspace) == "status") {
+
+    }
+    else if (cmd.substr(0,blackspace) == "summary") {
+
+    }
+    else if(cmd == "help"){
+        commands_list();
+    }
+    else{
+        CommandInput(myDriver);
+    }
+    if(cmd == "quit"){
         return 0; //Exits cleanly
-    }else if(cmd.substr(0, blankspace) == "order"){
-        blankspace = cmd.find_first_of(":"); // Gets the index of the colon
-        int myHour = stoi(cmd.substr(blankspace-3, blankspace-1)); //Gets the value of the hour
-        int myMinute = stoi(cmd.substr(blankspace+1, blankspace+3)); //Gets the value of the minute
-        myDriver.CreateOrder(myHour, myMinute, cmd.substr(blankspace+4)); //Creates an Ordr object with the specified Info, hour and minute
-        Commander(myDriver);
-    } else{
-    Commander(myDriver);
     }
 }
