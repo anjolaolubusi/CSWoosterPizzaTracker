@@ -5,6 +5,7 @@
 #include <iostream>
 #include "Order.h"
 #include <queue>
+#include <list>
 
 using namespace std;
 
@@ -19,7 +20,7 @@ class Driver{
     void arrive() throw(logic_error);
     private:
     queue<Order> myOrders; //Queue of orders
-    string myDriver;
+    list<string> Drivers;
     int orderStatus;
     //shows the status of the order
     //0: order is at the restaurant
@@ -29,14 +30,12 @@ class Driver{
 
 };
 
-Driver::Driver()
-{
-myDriver = "";
+Driver::Driver() {
 }
 
-void Driver::login(string DriverName)
-{
-myDriver= DriverName;
+void Driver::login(string DriverName) {
+    Driver.pushFront(DriverName);
+
 };
 
 
