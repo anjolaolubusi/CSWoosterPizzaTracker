@@ -4,31 +4,36 @@
 #include <stdexcept>
 #include <iostream>
 #include "Time.h"
+#include "Driver.h"
 
 using namespace std;
 
 class Order{
 public:
     Order(); //Constructor. Initalises the variables
-    Order(Time myTime, string MyInfo); //Sets the variables to certain values
+    Order(Time myTime, string MyInfo, string TheDriver); //Sets the variables to certain values
     void setTime(int myHour, int myMinute);// Sets the time variables
     string GetInfo(); //Returns the address, item and quanity
     void setInfo(string myInfo); // Sets the extra infomation
-    Order& operator= (Order& otherOrder); // Copy Constructor
+    Order& operator= (Order otherOrder); // Copy Constructor
     void PrintOrder(Order& otherOrder2); // Prints the time and infomation
+    string PrintDriver();
 
 private:
 Time mytime; //Time variales
 string info; // Infomation string
+string myDriver;
 };
 
 Order::Order(){
 info = "";
+myDriver = "";
 }
 
-Order::Order(Time TheTime, string myInfo){
+Order::Order(Time TheTime, string myInfo, string TheDriver){
 mytime = TheTime;
 info = myInfo;
+myDriver = TheDriver;
 }
 
 
@@ -43,15 +48,20 @@ return info;
 
 
 
-Order& Order::operator= (Order& otherOrder2){
+Order& Order::operator= (Order otherOrder2){
 otherOrder2.mytime = mytime;
 otherOrder2.info = info;
+otherOrder2.myDriver = myDriver;
 }
 
 void Order::PrintOrder(Order& otherOrder2){
 cout << otherOrder2.GetInfo() << endl;
 cout << otherOrder2.mytime << endl;
+cout << otherOrder2.PrintDriver() << endl;
 }
 
+string Order::PrintDriver(){
+return myDriver;
+}
 
 #endif
