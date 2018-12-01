@@ -8,13 +8,14 @@ using namespace std;
 
 class Time{
     public:
-        Time(); //Constructor
-        Time(int myHour, int myMinute); //Constructor
+        Time(); //Constructor. Initalises variables
+        Time(int myHour, int myMinute); //Constructor. Sets the hour and minute variables to certain values
         void setTime(int myHour, int myMinute); // Set's the time
         bool isDone(); // Meant to check the elapsed time but as of now it just returns true
-        int getHour() const; // Returns the hour of the Time class
+        int getHour(); // Returns the hour of the Time class
         int getMinute(); // Returns the minute of the Time class
-        friend ostream& operator << (ostream& out, const Time& myTime);
+        friend ostream& operator << (ostream& out, const Time& myTime); // Outputs the time
+        Time& operator= (Time& otherTime); // Copy Constructor
 
     private:
     int hour;
@@ -31,29 +32,41 @@ hour = myHour;
 minute = myMinute;
 }
 
+//pre-condition: 0 <= Hour <= 23 && 0 <= Minute <= 59
+//post-condition: hour and minute have new values
 void Time::setTime(int myHour, int myMinute){
-if(myHour >= 0 && myHour <= 23 && myMinute >= 0 && myMinute <= 59){
+
+if(myHour <= 23 && myHour >= 0 && myMinute >= 0 && myMinute <= 59){
 hour = myHour;
 minute = myMinute;
-} else {
+} else{
 cout << "Time is out of bounds" << endl;
 }
+
 }
 
 bool Time::isDone(){
 return (1+1 == 2);
 }
 
-int Time::getHour() const{
+//Returns the hour
+int Time::getHour(){
 return hour;
 }
 
+//Returns the minute
 int Time::getMinute(){
 return minute;
 }
 
+
 ostream& operator << (ostream& out, Time& myTime){
 cout << "Hour " << myTime.getHour() << " Minute " << myTime.getMinute() << endl;
+}
+
+Time& Time::operator= (Time& otherTime){
+otherTime.hour = hour;
+otherTime.minute = minute;
 }
 
 #endif
