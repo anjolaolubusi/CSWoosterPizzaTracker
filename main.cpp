@@ -69,15 +69,16 @@ int CommandInput(Driver myDriver){
 
     if (cmd.substr(0,blackspace) == "login"){
 
-        myDriver.login()
+        myDriver.login(cmd.substr(blackspace));
     }
     else if (cmd.substr(0,blackspace) == "logout"){
 
     }
     else if(cmd.substr(0, blackspace) == "order"){
         blackspace = cmd.find_first_of(":");
-        timeMan.setTime(stoi(cmd.substr(blackspace-3, blackspace-1)), stoi(cmd.substr(blackspace+1, blackspace+3)));
-        myDriver.CreateOrder(timeMan," Test");
+        int hour = stoi(cmd.substr(blackspace-3, blackspace-1));
+        int minute = stoi(cmd.substr(blackspace+1, blackspace+3));
+        myDriver.CreateOrder(hour, minute, cmd.substr(blackspace+4));
         CommandInput(myDriver);
     }
     else if (cmd.substr(0,blackspace) == "depart") {
