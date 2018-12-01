@@ -2,6 +2,7 @@
 #include <string>
 #include <algorithm>
 #include "Driver.h"
+#include "Status.h"
 
 using namespace std;
 
@@ -70,6 +71,7 @@ int CommandInput(Driver myDriver){
     if (cmd.substr(0,blackspace) == "login"){
 
         myDriver.login(cmd.substr(blackspace));
+        CommandInput(myDriver);
     }
     else if (cmd.substr(0,blackspace) == "logout"){
 
@@ -78,7 +80,7 @@ int CommandInput(Driver myDriver){
         blackspace = cmd.find_first_of(":");
         int hour = stoi(cmd.substr(blackspace-3, blackspace-1));
         int minute = stoi(cmd.substr(blackspace+1, blackspace+3));
-        myDriver.CreateOrder(hour, minute, cmd.substr(blackspace+4));
+        myDriver.CreateOrder(hour, minute, cmd.substr(blackspace+4), myDriver.GetCurrentDrivers());
         CommandInput(myDriver);
     }
     else if (cmd.substr(0,blackspace) == "depart") {
@@ -94,7 +96,9 @@ int CommandInput(Driver myDriver){
 
     }
     else if (cmd.substr(0,blackspace) == "status") {
-
+        Status currentStatus;
+        currentStatus.PrintStatus(myDriver);
+        CommandInput(myDriver);
     }
     else if (cmd.substr(0,blackspace) == "summary") {
 
@@ -102,10 +106,10 @@ int CommandInput(Driver myDriver){
     else if(cmd == "help"){
         commands_list();
     }
+    else if(cmd == "quit"){
+        return 0; //Exits cleanly
+    }
     else{
         CommandInput(myDriver);
-    }
-    if(cmd == "quit"){
-        return 0; //Exits cleanly
     }
 }
