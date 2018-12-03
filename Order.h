@@ -20,10 +20,10 @@ public:
     void PrintOrder(Order& otherOrder2); // Prints the time and infomation
 
 private:
-Time mytime; //Time variales
-string info; // Infomation string
-string myDriver;
-double averageOrderTime(Time myTime);
+    Time mytime; //Time variales
+    string info; // Infomation string
+    string myDriver;
+    double averageOrderTime(Time myTime);
 };
 
 Order(){
