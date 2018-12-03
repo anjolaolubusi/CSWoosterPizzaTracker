@@ -1,5 +1,5 @@
-#ifndef STATUS_H
-#define STATUS_H
+#ifndef SUMMARY_H
+#define SUMMARY_H
 
 #include <stdexcept>
 #include <iostream>
@@ -39,14 +39,16 @@ public:
     void driversLoggedIn();
     void driversLoggedOut();
 
+private:
+
 };
 
-int Summary:: totalDeliveries(){
+void Summary:: totalDeliveries(int ){
 
 }
 
 
-double Summary:: avgDeliveryTime(){
+double Summary:: avgDeliveryTime(int deliveryTime){
 
 }
 
