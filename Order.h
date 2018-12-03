@@ -11,6 +11,7 @@ using namespace std;
 class Order{
 public:
     Order(); //Constructor. Initalises the variables
+    ~Order();
     Order(Time myTime, string MyInfo, string TheDriver); //Sets the variables to certain values
     void setTime(int myHour, int myMinute);// Sets the time variables
     string GetInfo(); //Returns the address, item and quantity
@@ -25,15 +26,20 @@ string myDriver;
 double averageOrderTime(Time myTime);
 };
 
-Order::Order(){
-info = "";
-myDriver = "";
+Order(){
+    info = "";
+    myDriver = "";
 }
 
+~Order(){
+
+}
+
+
 Order::Order(Time TheTime, string myInfo, string TheDriver){
-mytime = TheTime;
-info = myInfo;
-myDriver = TheDriver;
+    mytime = TheTime;
+    info = myInfo;
+    myDriver = TheDriver;
 }
 
 
@@ -50,15 +56,15 @@ string Order::GetInfo(){
 
 
 Order& Order::operator= (Order otherOrder2){
-otherOrder2.mytime = mytime;
-otherOrder2.info = info;
-otherOrder2.myDriver = myDriver;
+    otherOrder2.mytime = mytime;
+    otherOrder2.info = info;
+    otherOrder2.myDriver = myDriver;
 }
 
 void Order::PrintOrder(Order& otherOrder2){
-cout << otherOrder2.GetInfo() << endl;
-cout << otherOrder2.mytime << endl;
-cout << otherOrder2.PrintDriver() << endl;
+    cout << otherOrder2.GetInfo() << endl;
+    cout << otherOrder2.mytime << endl;
+    cout << otherOrder2.PrintDriver() << endl;
 }
 
 double Order::averageOrderTime(Time myTime) {
@@ -66,7 +72,7 @@ double Order::averageOrderTime(Time myTime) {
   }
 
 string Order::PrintDriver(){
-return myDriver;
+    return myDriver;
 }
 
 #endif

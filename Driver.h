@@ -34,6 +34,13 @@ class Driver{
 
 };
 
+void Driver::CreateOrder(int NewHour, int NewMinute, string TheInfo, string TheDriver){
+    Time myTime; //The time variable
+    Order newOrder(myTime, TheInfo, TheDriver); //Creates Order with a default time
+    newOrder.setTime(NewHour, NewMinute); //Sets the new Time
+    myOrders.push(newOrder); //Adds to the Queue
+
+}
 
 void Driver:: depart() throw(logic_error)
 /*
@@ -66,14 +73,6 @@ void Driver:: arrive() throw(logic_error)
     if(orderStatus != 2)
         throw logic_error("Driver has not delivered order");
     orderStatus = 3;
-}
-
-void Driver::CreateOrder(int NewHour, int NewMinute, string TheInfo, string TheDriver){
-    Time myTime; //The time variable
-    Order newOrder(myTime, TheInfo, TheDriver); //Creates Order with a default time
-    newOrder.setTime(NewHour, NewMinute); //Sets the new Time
-    myOrders.push(newOrder); //Adds to the Queue
-
 }
 
 queue<Order> Driver::getOrders(){
