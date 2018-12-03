@@ -2,7 +2,8 @@
 #include <string>
 #include <algorithm>
 #include "Driver.h"
-
+#include "Status.h"
+#include "Summary.h"
 using namespace std;
 
 int CommandInput(Driver myDriver);
@@ -70,19 +71,33 @@ int CommandInput(Driver myDriver){
     if (cmd.substr(0,blackspace) == "login"){
 
         myDriver.login(cmd.substr(blackspace));
+        CommandInput(myDriver);
     }
     else if (cmd.substr(0,blackspace) == "logout"){
 
     }
     else if(cmd.substr(0, blackspace) == "order"){
+        if(myDriver.GetCurrentDrivers() != ""){
         blackspace = cmd.find_first_of(":");
         int hour = stoi(cmd.substr(blackspace-3, blackspace-1));
         int minute = stoi(cmd.substr(blackspace+1, blackspace+3));
         myDriver.CreateOrder(hour, minute, cmd.substr(blackspace+4));
         CommandInput(myDriver);
+        } else {
+        cout << "Please log in" << endl;
+        }
     }
-    else if (cmd.substr(0,blackspace) == "depart") {
-
+    else if (cmd.substr(0,blackspace) == "depart" && myDriver.GetCurrentDrivers() != "") {
+    if(myDriver.GetCurrentDrivers() != ""){
+        blackspace = cmd.find_first_of(":");
+        int hour = stoi(cmd.substr(blackspace-3, blackspace-1));
+        int minute = stoi(cmd.substr(blackspace+1, blackspace+3));
+        myDriver.depart(hour, minute, cmd.substr(blackspace+4));
+        CommandInput(myDriver);
+         } else {
+        cout << "Please log in" << endl;
+        CommandInput(myDriver);
+        }
     }
     else if (cmd.substr(0,blackspace) == "deliver") {
 
@@ -94,7 +109,14 @@ int CommandInput(Driver myDriver){
 
     }
     else if (cmd.substr(0,blackspace) == "status") {
-
+        if(myDriver.GetCurrentDrivers() != ""){
+        Status currentStatus;
+        currentStatus.PrintStatus(myDriver);
+        CommandInput(myDriver);
+         } else {
+        cout << "Please log in" << endl;
+        CommandInput(myDriver);
+        }
     }
     else if (cmd.substr(0,blackspace) == "summary") {
 
@@ -102,10 +124,10 @@ int CommandInput(Driver myDriver){
     else if(cmd == "help"){
         commands_list();
     }
+    else if(cmd == "quit"){
+        return 0; //Exits cleanly
+    }
     else{
         CommandInput(myDriver);
-    }
-    if(cmd == "quit"){
-        return 0; //Exits cleanly
     }
 }

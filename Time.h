@@ -3,7 +3,7 @@
 
 #include <stdexcept>
 #include <iostream>
-
+#include <ctime>
 using namespace std;
 
 class Time{
@@ -16,6 +16,7 @@ class Time{
         int getMinute(); // Returns the minute of the Time class
         friend ostream& operator << (ostream& out, const Time& myTime); // Outputs the time
         Time& operator= (Time& otherTime); // Copy Constructor
+        int elapsedTime(Time t1, Time t2); //Returns the time difference in minutes
 
     private:
     int hour;
@@ -23,8 +24,8 @@ class Time{
 };
 
 Time::Time(){
-hour = 0;
-minute = 0;
+hour = -1;
+minute = -1;
 }
 
 Time::Time(int myHour, int myMinute){
@@ -67,6 +68,13 @@ cout << "Hour " << myTime.getHour() << " Minute " << myTime.getMinute() << endl;
 Time& Time::operator= (Time& otherTime){
 otherTime.hour = hour;
 otherTime.minute = minute;
+}
+
+
+int Time::elapsedTime(Time t1, Time t2){
+int difHour = abs(t1.getHour() - t2.getHour());
+int difMin = abs(t1.getMinute() - t2.getMinute());
+return (difHour *60) + difMin;
 }
 
 #endif
