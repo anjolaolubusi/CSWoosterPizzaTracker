@@ -34,8 +34,6 @@ class Driver{
 
 };
 
-};
-
 
 void Driver:: depart() throw(logic_error)
 /*
