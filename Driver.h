@@ -78,6 +78,13 @@ void Driver:: arrive() throw(logic_error)
 
 }
 
+
+void Driver::CreateOrder(int NewHour, int NewMinute, string TheInfo, string TheDriver){
+    Time myTime; //The time variable
+    Order newOrder(myTime, TheInfo, TheDriver); //Creates Order with a default time
+    newOrder.setTime(NewHour, NewMinute); //Sets the new Time
+    myOrders.push(newOrder); //Adds to the Queue
+
 void Driver::CreateOrder(int NewHour, int NewMinute, string TheInfo){
 Time myTime; //The time variable
 Order newOrder(myTime, TheInfo); //Creates Order with a default time
@@ -88,25 +95,25 @@ myOrders.push(newOrder); //Adds to the Queue
 
 //Returns the list of orders
 queue<Order> Driver::getOrders(){
-return myOrders;
+    return myOrders;
 }
 
 //Returns the stack of orders
 stack<string> Driver::getDrivers(){
-return myDrivers;
+    return myDrivers;
 }
 
 //Equals operator
 Driver& Driver::operator= (Driver& otherOrder2){
-otherOrder2.currentDriver = currentDriver;
-otherOrder2.myDrivers = myDrivers;
-otherOrder2.myOrders = myOrders;
-otherOrder2.orderStatus = orderStatus;
+    otherOrder2.currentDriver = currentDriver;
+    otherOrder2.myDrivers = myDrivers;
+    otherOrder2.myOrders = myOrders;
+    otherOrder2.orderStatus = orderStatus;
 }
 
 //Returns the name of the current driver
 string Driver::GetCurrentDrivers(){
-return currentDriver;
+    return currentDriver;
 }
 
 
