@@ -18,6 +18,14 @@ public:
     void setInfo(string myInfo); // Sets the extra infomation
     Order& operator= (Order otherOrder); // Copy Constructor
     void PrintOrder(Order& otherOrder2); // Prints the time and infomation
+    string GetInfo(); //Returns the address, item and quanity
+   // void setInfo(string myInfo); // Sets the extra infomation
+    Order& operator= (Order otherOrder); // Copy Constructor
+    void PrintOrder(Order& otherOrder2); // Prints the time and infomation
+    string PrintDriver(); //Outputs the current driver
+    void SetDriver(string NewDriver); //Sets the current driver
+    void SetTimeDeparted(int myHour, int myMinute); //Sets the hour and the minute of departTime
+    Time getDepartedTime(); //Returns the departed time variables
 
 private:
     Time mytime; //Time variales
@@ -42,18 +50,18 @@ Order::Order(Time TheTime, string myInfo, string TheDriver){
     myDriver = TheDriver;
 }
 
-
+// Sets the time variables
 void Order::setTime(int myHour, int myMinute){
     mytime.setTime(myHour, myMinute);
 }
 
-
+//Returns the address, item and quanity
 string Order::GetInfo(){
     return info;
 }
 
 
-
+// Copy Constructor
 
 Order& Order::operator= (Order otherOrder2){
     otherOrder2.mytime = mytime;
@@ -61,18 +69,35 @@ Order& Order::operator= (Order otherOrder2){
     otherOrder2.myDriver = myDriver;
 }
 
+// Prints the time and infomation
 void Order::PrintOrder(Order& otherOrder2){
     cout << otherOrder2.GetInfo() << endl;
     cout << otherOrder2.mytime << endl;
     cout << otherOrder2.PrintDriver() << endl;
 }
 
+
+/**
 double Order::averageOrderTime(Time myTime) {
     return avgTime;
   }
+**/
 
+//Outputs the current driver
 string Order::PrintDriver(){
     return myDriver;
 }
 
+//Sets the current driver
+void Order::SetDriver(string NewDriver){
+myDriver = NewDriver;
+}
+
+void Order::SetTimeDeparted(int myHour, int myMinute){
+timeDeparted.setTime(myHour, myMinute);
+}
+
+Time Order::getDepartedTime(){
+return timeDeparted;
+}
 #endif

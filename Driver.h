@@ -14,24 +14,38 @@ class Driver{
     Driver(); //Constructor Initialises the varaiables
     void login(string DriverName); //Logs the user in (Works with any name)
     void logout(); //Logouts the user name
-    void CreateOrder(int NewHour, int NewMinute, string TheInfo, string TheDriver); // Creates an Order and inserts the order intyo the Queue
-    void depart() throw(logic_error);
+    void CreateOrder(int NewHour, int NewMinute, string TheInfo); // Creates an Order and inserts the order intyo the Queue
+    void depart(int MyHour, int MyMinute, string DepartDriver) throw(logic_error);
     void deliver() throw(logic_error);
     void arrive() throw(logic_error);
-    queue<Order> getOrders();
-    stack<string> getDrivers();
-    Driver& operator= (Driver& otherDriver);
-    string GetCurrentDrivers();
+    queue<Order> getOrders(); //Returns the order queue
+    stack<string> getDrivers(); //Returns the Driver stack
+    Driver& operator= (Driver& otherDriver); //Operator function
+    string GetCurrentDrivers(); // Returns the current Driver name
 
     private:
     queue<Order> myOrders; //Queue of orders
+    stack<string> myDrivers;
+    stack<string> DeliverDrivers;
+    string currentDriver;
     int orderStatus;
     //shows the status of the order
     //0: order is at the restaurant
     //1: driver is out for delivery
     //2: driver has delivered order
     //3: driver is back at the restaurant
+};
 
+Driver::Driver()
+{
+
+}
+
+//Post-condition: the name of the driver is in a stack
+void Driver::login(string DriverName)
+{
+myDrivers.push(DriverName);
+currentDriver = DriverName;
 };
 
 void Driver::CreateOrder(int NewHour, int NewMinute, string TheInfo, string TheDriver){
@@ -42,15 +56,14 @@ void Driver::CreateOrder(int NewHour, int NewMinute, string TheInfo, string TheD
 
 }
 
-void Driver:: depart() throw(logic_error)
+void Driver:: depart(int MyHour, int MyMinute, string DepartDriver) throw(logic_error)
 /*
 *pre-condition: order is at the restaurant
 *post-condition: driver is out for delivery
  */
 {
-    if(orderStatus != 0)
-        throw logic_error("Order has not been received at the restaurant");
-    orderStatus = 1;
+    myOrders.front().SetTimeDeparted(MyHour, MyMinute);
+    myOrders.front().SetDriver(DepartDriver);
 }
 
 void Driver:: deliver() throw(logic_error)
@@ -59,9 +72,8 @@ void Driver:: deliver() throw(logic_error)
  *post-condition: driver has delivered order
  */
 {
-    if(orderStatus != 1)
-        throw logic_error("Driver is not out to deliver order");
-    orderStatus = 2;
+
+
 }
 
 void Driver:: arrive() throw(logic_error)
@@ -70,19 +82,19 @@ void Driver:: arrive() throw(logic_error)
  *post-condition: driver is back at the shop
  */
 {
-    if(orderStatus != 2)
-        throw logic_error("Driver has not delivered order");
-    orderStatus = 3;
+
 }
 
 queue<Order> Driver::getOrders(){
     return myOrders;
 }
 
+//Returns the stack of orders
 stack<string> Driver::getDrivers(){
     return myDrivers;
 }
 
+//Equals operator
 Driver& Driver::operator= (Driver& otherOrder2){
     otherOrder2.currentDriver = currentDriver;
     otherOrder2.myDrivers = myDrivers;
@@ -90,8 +102,10 @@ Driver& Driver::operator= (Driver& otherOrder2){
     otherOrder2.orderStatus = orderStatus;
 }
 
+//Returns the name of the current driver
 string Driver::GetCurrentDrivers(){
     return currentDriver;
 }
+
 
 #endif
