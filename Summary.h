@@ -89,10 +89,10 @@ public:
 private:
     int totalDeliveries;
     double totalTips;
-    Time avgDeliveryTime
-    Time totalDrivingTime
-    queue loggedIn<>//list of drivers and their deliveries
-
+    Time avgDeliveryTime;
+    Time totalDrivingTime;
+    queue loggedIn<string>;//list of drivers and their deliveries
+    queue loggedOff<string>;
 };
 
 Summary:: summary(){

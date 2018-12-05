@@ -28,6 +28,7 @@ public:
     Time getDepartedTime(); //Returns the departed time variables
 
 private:
+    Time timeDeparted;
     Time mytime; //Time variales
     string info; // Infomation string
     string myDriver;

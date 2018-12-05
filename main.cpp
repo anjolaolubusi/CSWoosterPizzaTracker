@@ -47,7 +47,7 @@ void commands_list(){
                 "ORDER TIME QUANTITY TYPE ADDRESS\n"
                 "order 9:55 2 veggie to 100 Liberty\n"
                 "----------------------------------\n"
-                "order 0:02 1 cheese 1 breadsticks "
+                "order 0:02 1 cheese 1 bread sticks "
                 "to 123 Holden Hall\n" << endl;
     }
 }
