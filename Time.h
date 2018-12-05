@@ -12,8 +12,8 @@ class Time{
         Time(int myHour, int myMinute); //Constructor. Sets the hour and minute variables to certain values
         void setTime(int myHour, int myMinute); // Set's the time
         bool isDone(); // Meant to check the elapsed time but as of now it just returns true
-        int getHour(); // Returns the hour of the Time class
-        int getMinute(); // Returns the minute of the Time class
+        int getHour() const; // Returns the hour of the Time class
+        int getMinute() const; // Returns the minute of the Time class
         friend ostream& operator << (ostream& out, const Time& myTime); // Outputs the time
         Time& operator= (Time& otherTime); // Copy Constructor
         int elapsedTime(Time t1, Time t2); //Returns the time difference in minutes
@@ -51,12 +51,12 @@ return (1+1 == 2);
 }
 
 //Returns the hour
-int Time::getHour(){
+int Time::getHour() const{
 return hour;
 }
 
 //Returns the minute
-int Time::getMinute(){
+int Time::getMinute() const{
 return minute;
 }
 
@@ -66,8 +66,10 @@ cout << "Hour " << myTime.getHour() << " Minute " << myTime.getMinute() << endl;
 }
 
 Time& Time::operator= (Time& otherTime){
-otherTime.hour = hour;
-otherTime.minute = minute;
+    if(&otherTime != this){
+    hour = otherTime.hour;
+    minute = otherTime.minute;
+    }return *this;
 }
 
 
