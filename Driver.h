@@ -96,10 +96,9 @@ Driver :: Driver(Driver& anotherDriver)
 
 }
 
-
+Driver& Driver::operator=(Driver& anotherDriver)
 // pre-condition: none
 // post-condition: Sets the Driver to be equivalent to the other and returns a reference to the modified Driver.
-Driver& Driver::operator=(Driver& anotherDriver)
 {
     if (&anotherDriver != this)
     {
@@ -118,9 +117,9 @@ Driver& Driver::operator=(Driver& anotherDriver)
     return *this;
 }
 
+void Driver::login() throw(logic_error)
 //pre-condition: Driver is not logged in
 //post-condition: Driver is logged in
-void Driver::login() throw(logic_error)
 {
 
     if (isLoggedIn)
@@ -129,9 +128,9 @@ void Driver::login() throw(logic_error)
     isLoggedIn = true;
 }
 
+void Driver::logout() throw(logic_error)
 //pre-condition: Driver is logged in
 //post-condition: Driver is logged out
-void Driver::logout() throw(logic_error)
 {
     if (!isLoggedIn)
     {
@@ -141,9 +140,9 @@ void Driver::logout() throw(logic_error)
     isLoggedIn = false;
 }
 
+void Driver::depart(const Time time, const Order o) throw (logic_error)
 //pre-condition: Driver is not on delivery and is logged in
 //post-condition: Driver is on delivery
-void Driver::depart(const Time time, const Order o) throw (logic_error)
 {
     if (!isLoggedIn)
         throw logic_error("Driver is not logged in");
@@ -157,9 +156,9 @@ void Driver::depart(const Time time, const Order o) throw (logic_error)
     order.depart();
 }
 
+void Driver::deliver(const Time time, const float tip) throw(logic_error)
 //pre-condition: Driver is on delivery and the order has not been delivered. Tip >= 0
 //post-condition: Order has been delivered.
-void Driver::deliver(const Time time, const float tip) throw(logic_error)
 {
     if (!isOnDelivery)
         throw logic_error("Driver is not on delivery");
@@ -179,9 +178,9 @@ void Driver::deliver(const Time time, const float tip) throw(logic_error)
     totalMinDelivering = Time::elapsedMin(timeDepart, timeDeliver);
 }
 
+void Driver::arrive(const Time time) throw (logic_error)
 //pre-condition: Driver is on delivery and the order has been delivered.
 //post-condition: Order has been delivered.
-void Driver::arrive(const Time time) throw (logic_error)
 {
     if (!isOnDelivery)
         throw logic_error("Driver is not on delivery");
@@ -202,37 +201,37 @@ string Driver::getName() const
     return name;
 }
 
+int Driver::getTotalDeliveries() const
 //pre-condition: none
 //post-condition: Returns the total number of completed deliveries.
-int Driver::getTotalDeliveries() const
 {
     return totalDeliveries;
 }
 
+int Driver::getTotalMinDriving() const
 //pre-condition: none
 //post-condition: Returns the total minutes spent driving
-int Driver::getTotalMinDriving() const
 {
     return totalMinDriving;
 }
 
+int Driver::getTotalMinDelivering() const
 //pre-condition: none
 //post-condition: Returns the total minutes spent delivering
-int Driver::getTotalMinDelivering() const
 {
     return totalMinDelivering;
 }
 
+float Driver::getTotalTips() const
 //pre-condition: none
 //post-condition: Returns the total tips received, in dollars.
-float Driver::getTotalTips() const
 {
     return totalTips;
 }
 
+Order Driver::getOrder() const throw(logic_error)
 //pre-condition: Driver is delivering.
 //post-condition: Returns the order being delivered.
-Order Driver::getOrder() const throw(logic_error)
 {
     if (!isOnDelivery)
         throw logic_error("Driver is not on delivery");
@@ -240,9 +239,10 @@ Order Driver::getOrder() const throw(logic_error)
     return order;
 }
 
-//pre-condition: none
-//post-condition: Returns a string containing the driver’s name, state, and, if the driver is delivering an order, the departure time and toString of the order being delivered.
 string Driver::toString() const
+//pre-condition: none
+//post-condition: Returns a string containing the driver’s name, state, and,
+//if the driver is delivering an order, the departure time and toString of the order being delivered.
 {
     string driver_info;
     driver_info = name + " ";
@@ -258,18 +258,19 @@ string Driver::toString() const
     return driver_info;
 }
 
-//pre-condition: none
-//post-condition:average time per completed delivery of driver (from “depart” to “deliver”). Return N/A if there is no completed delivery
 float Driver::averageDeliveryTime() const
+//pre-condition: none
+//post-condition:average time per completed delivery of driver (from “depart” to “deliver”).
+//Return N/A if there is no completed delivery
 {
     float average_time = (totalDeliveries != 0) ? (float)totalMinDelivering / totalDeliveries : 0;
 
     return average_time;
 }
 
+bool Driver::loggedIn() const
 //pre-condition: none
 //post-condition: Returns true if and only if the driver is logged in.
-bool Driver::loggedIn() const
 {
     return isLoggedIn;
 }

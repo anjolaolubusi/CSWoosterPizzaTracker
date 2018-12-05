@@ -1,7 +1,5 @@
-
 #include <iostream>
 #include "Driver.h"
-#include "Restaurant.h"
 
 using namespace std;
 void login(string driver, Restaurant& aRestaurant) throw (logic_error);
@@ -13,6 +11,8 @@ void depart(const Time& time, const string driver, Restaurant& aRestaurant);
 void deliver(const Time& time, const string driver, const float tip, Restaurant& arestaurant);
 
 void arrive(const Time& time, const string driver, Restaurant& aRestaurant);
+
+int Commander(Driver myDriver);
 
 void print_help();
 
@@ -36,87 +36,84 @@ int main()
     print_help();
     cin >> command;
 
+    /*
+     while (command != "quit") {
 
-    while (command != "quit") {
+         //Handles input and calls the corresponding function
+         if (command == "help") {
+             print_help();
+         }
+         else if (command == "login")
+         {
+             cin >> driver;
+             login(driver, Dominios);
+         }
 
-        //Handles input and calls the corresponding function
-        if (command == "help") {
-            print_help();
-        }
-        else if (command == "login")
-        {
-            cin >> driver;
-            login(driver, Dominios);
-        }
+         else if (command == "logout")
+         {
+             cin >> driver;
+             logout(driver, Dominios);
+         }
 
-        else if (command == "logout")
-        {
-            cin >> driver;
-            logout(driver, Dominios);
-        }
+         else if (command == "order")
+         {
+             cin >> string_time;
+             getline(cin, info);
+             Time time(string_time);
+             order(time, info, Dominios);
+         }
 
-        else if (command == "order")
-        {
-            cin >> string_time;
-            getline(cin, info);
-            Time time(string_time);
-            order(time, info, Dominios);
-        }
+         else if (command == "serve")
+         {
+             cin >> string_time;
+             Time time(string_time);
+             serve(time, Dominios);
+         }
 
-        else if (command == "serve")
-        {
-            cin >> string_time;
-            Time time(string_time);
-            serve(time, Dominios);
-        }
+         else if (command == "depart")
+         {
+             cin >> string_time;
+             Time time(string_time);
+             cin >> driver;
+             depart(time, driver, Dominios);
+         }
 
-        else if (command == "depart")
-        {
-            cin >> string_time;
-            Time time(string_time);
-            cin >> driver;
-            depart(time, driver, Dominios);
-        }
+         else if (command == "deliver")
+         {
+             cin >> string_time;
+             Time time(string_time);
+             cin >> driver;
+             float tip;
+             cin >> tip;
+             deliver(time, driver, tip, Dominios);
+         }
 
-        else if (command == "deliver")
-        {
-            cin >> string_time;
-            Time time(string_time);
-            cin >> driver;
-            float tip;
-            cin >> tip;
-            deliver(time, driver, tip, Dominios);
-        }
+         else if (command == "arrive")
+         {
+             cin >> string_time;
+             Time time(string_time);
+             cin >> driver;
+             arrive(time, driver, Dominios);
+         }
 
-        else if (command == "arrive")
-        {
-            cin >> string_time;
-            Time time(string_time);
-            cin >> driver;
-            arrive(time, driver, Dominios);
-        }
+         else if (command == "status")
+             status(Dominios);
 
-        else if (command == "status")
-            status(Dominios);
+         else if (command == "summary")
+             summary(Dominios);
 
-        else if (command == "summary")
-            summary(Dominios);
+         else
+             cout << "Not a valid command" << endl;
 
-        else
-            cout << "Not a valid command" << endl;
+         cin >> command;
+     }
 
-        cin >> command;
-    }
-
-    return 0;
+     return 0;
+ }*/
 }
 
-//Command line function:
-/**
-The idea is you would input a string and the compiler would scan the string for a command it recongize
-**/
-
-void login(string driver, Restaurant& arestaurant) throw (logic_error) {
+void login(string driver, Restaurant& arestaurant) throw (logic_error)
+{
     Driver* DriverPtr =  arestaurant.getDriver(driver);
     if (DriverPtr == nullptr) {
 
@@ -128,27 +125,32 @@ void login(string driver, Restaurant& arestaurant) throw (logic_error) {
 }
 
 
-void logout(string driver, Restaurant& arestaurant) throw (logic_error){
+void logout(string driver, Restaurant& arestaurant) throw (logic_error)
+{
 
     Driver* DriverPtr =  arestaurant.getDriver(driver);
 
-    if (DriverPtr == nullptr) {
+    if (DriverPtr == nullptr)
+    {
         throw logic_error("Driver does not exist");
     }
     (*DriverPtr).logout();
 }
-void depart(const Time& time, const string driver, Restaurant& arestaurant) {
+void depart(const Time& time, const string driver, Restaurant& arestaurant)
+{
     Order*departOrder = arestaurant.departNextOrder();
     Driver*DriverPtr =  arestaurant.getDriver(driver);
     DriverPtr->depart(time, *departOrder);
 }
 
-void deliver(const Time& time, const string driver, const float tip, Restaurant& arestaurant) {
+void deliver(const Time& time, const string driver, const float tip, Restaurant& arestaurant)
+{
     Driver*DriverPtr =  arestaurant.getDriver(driver);
     arestaurant.deliver(DriverPtr, time, tip);
 }
 
-void arrive(const Time& time, const string driver, Restaurant& arestaurant) {
+void arrive(const Time& time, const string driver, Restaurant& arestaurant)
+{
     Driver*DriverPtr =  arestaurant.getDriver(driver);
     DriverPtr->arrive(time);
 
