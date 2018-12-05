@@ -24,6 +24,10 @@ public:
     void status() const;
   
     void summary() const;
+    
+    Driver* getDriver(const string name) const;
+    
+    void addDriver(Driver* driver) throw (logic_error);
  
     void addOrder(Order* order);
    
@@ -68,6 +72,41 @@ void Restaurant::summary() const
 //post-condition
 {
 
+}
+
+Driver* Restaurant::getDriver(const string name) const
+{
+    vector<Driver*>::const_iterator driver = driver_list.begin();
+    
+    Driver* driverPtr = nullptr;
+    bool driverExists = false;
+    
+    while (!driverExists && driver != driver_list.end()) //iterates through the driver list
+    {
+        if ((**driver).getName() == name) //checks if a driver with that name already exists in the system
+        {
+            driverPtr = *driver;
+            driverExists = true;
+        }
+        driver++;
+    }
+    
+    return driverPtr;
+}
+
+void Restaurant::addDriver(Driver* driver) throw (logic_error)
+{
+    if (getDriver((*driver).getName()) != nullptr)
+        throw logic_error("Driver with this name already exists");
+    
+    driver_list.push_back(driver); //adds driver to driver list
+}
+
+//Pre: none
+//Post: Adds the given order to the system, enqueuing it for cooking.
+void Restaurant::addOrder(Order* order)
+{
+    order_queue.push_back(order); //adds order to cooking queue
 }
 
 void Restaurant::addOrder(Order* order)
