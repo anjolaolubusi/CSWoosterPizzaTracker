@@ -11,7 +11,8 @@ using namespace std;
 class Order{
 public:
     Order(); //Constructor. Initalises the variables
-    Order(Time myTime, string MyInfo); //Sets the variables to certain values
+    ~Order();
+    Order(Time myTime, string MyInfo, string TheDriver); //Sets the variables to certain values
     void setTime(int myHour, int myMinute);// Sets the time variables
     string GetInfo(); //Returns the address, item and quantity
     void setInfo(string myInfo); // Sets the extra infomation
@@ -27,22 +28,27 @@ public:
     Time getDepartedTime(); //Returns the departed time variables
 
 private:
-Time mytime; //Time variales
-string info; // Infomation string
-string myDriver;
-//double averageOrderTime(Time myTime);
-string myDriver; //Current driver
-Time timeDeparted; // Time for departed
+    Time timeDeparted;
+    Time mytime; //Time variales
+    string info; // Infomation string
+    string myDriver;
+    double averageOrderTime(Time myTime);
 };
 
-Order::Order(){
-info = "";
-myDriver = "";
+Order(){
+    info = "";
+    myDriver = "";
 }
 
-Order::Order(Time TheTime, string myInfo){
-mytime = TheTime;
-info = myInfo;
+~Order(){
+
+}
+
+
+Order::Order(Time TheTime, string myInfo, string TheDriver){
+    mytime = TheTime;
+    info = myInfo;
+    myDriver = TheDriver;
 }
 
 // Sets the time variables
@@ -59,19 +65,16 @@ string Order::GetInfo(){
 // Copy Constructor
 
 Order& Order::operator= (Order otherOrder2){
-otherOrder2.mytime = mytime;
-otherOrder2.info = info;
-otherOrder2.myDriver = myDriver;
+    otherOrder2.mytime = mytime;
+    otherOrder2.info = info;
+    otherOrder2.myDriver = myDriver;
 }
 
 // Prints the time and infomation
 void Order::PrintOrder(Order& otherOrder2){
-if(otherOrder2.PrintDriver() != ""){
-cout << "Driver: " << otherOrder2.PrintDriver() << endl;
-}
-cout << "Order: " << otherOrder2.GetInfo() << endl;
-cout << "Time orderded: " << otherOrder2.mytime << endl;
-cout << "Time departed: " <<otherOrder2.timeDeparted << endl;
+    cout << otherOrder2.GetInfo() << endl;
+    cout << otherOrder2.mytime << endl;
+    cout << otherOrder2.PrintDriver() << endl;
 }
 
 
@@ -83,7 +86,7 @@ double Order::averageOrderTime(Time myTime) {
 
 //Outputs the current driver
 string Order::PrintDriver(){
-return myDriver;
+    return myDriver;
 }
 
 //Sets the current driver

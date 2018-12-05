@@ -44,10 +44,17 @@ Driver::Driver()
 //Post-condition: the name of the driver is in a stack
 void Driver::login(string DriverName)
 {
-myDrivers.push(DriverName);
-currentDriver = DriverName;
+    myDrivers.push(DriverName);
+    currentDriver = DriverName;
 };
 
+void Driver::CreateOrder(int NewHour, int NewMinute, string TheInfo, string TheDriver){
+    Time myTime; //The time variable
+    Order newOrder(myTime, TheInfo, TheDriver); //Creates Order with a default time
+    newOrder.setTime(NewHour, NewMinute); //Sets the new Time
+    myOrders.push(newOrder); //Adds to the Queue
+
+}
 
 void Driver:: depart(int MyHour, int MyMinute, string DepartDriver) throw(logic_error)
 /*
@@ -78,22 +85,6 @@ void Driver:: arrive() throw(logic_error)
 
 }
 
-
-void Driver::CreateOrder(int NewHour, int NewMinute, string TheInfo, string TheDriver){
-    Time myTime; //The time variable
-    Order newOrder(myTime, TheInfo, TheDriver); //Creates Order with a default time
-    newOrder.setTime(NewHour, NewMinute); //Sets the new Time
-    myOrders.push(newOrder); //Adds to the Queue
-
-void Driver::CreateOrder(int NewHour, int NewMinute, string TheInfo){
-Time myTime; //The time variable
-Order newOrder(myTime, TheInfo); //Creates Order with a default time
-newOrder.setTime(NewHour, NewMinute);
-myOrders.push(newOrder); //Adds to the Queue
-
-}
-
-//Returns the list of orders
 queue<Order> Driver::getOrders(){
     return myOrders;
 }
@@ -115,6 +106,9 @@ Driver& Driver::operator= (Driver& otherOrder2){
 string Driver::GetCurrentDrivers(){
     return currentDriver;
 }
+
+
+
 
 
 #endif
