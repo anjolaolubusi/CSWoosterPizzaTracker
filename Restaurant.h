@@ -35,15 +35,15 @@ public:
     
     
 private:
-    vector<Driver*> driver_list; //A vector containing all of the drivers.
+    vector<Driver*> driver_list; //vector containing all of the drivers.
     
-    deque<Order*> order_queue;//The cooking queue;
+    deque<Order*> order_queue;//cooking queue;
     
-    deque<Order*> delivery_queue; //The delivery queue;
+    deque<Order*> delivery_queue; //delivery queue;
     
-    int totalOrders; //Number of total orders
+    int totalOrders; //total orders
     
-    int totalOrderTime; //the total time of all orders 
+    int totalOrderTime; //total time of all orders 
     
      float averageOrderTime() const;//returns the average time for each order
 
