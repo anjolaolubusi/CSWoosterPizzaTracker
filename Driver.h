@@ -44,8 +44,8 @@ Driver::Driver()
 //Post-condition: the name of the driver is in a stack
 void Driver::login(string DriverName)
 {
-myDrivers.push(DriverName);
-currentDriver = DriverName;
+    myDrivers.push(DriverName);
+    currentDriver = DriverName;
 };
 
 void Driver::CreateOrder(int NewHour, int NewMinute, string TheInfo, string TheDriver){

@@ -13,6 +13,16 @@ using namespace std;
 
 class Summary{
 public:
+    /*
+    A manager uses this command to view summary statistics on orders and drivers, specifically:
+    1	total number of deliveries completed
+    1	average time per order (from “order” to “deliver”)
+    2	number of deliveries completed by each driver
+    3	average time per completed delivery for each driver (from “depart” to “deliver”)
+    1	total driving time on completed trips for each driver (from “depart” to “return”)
+    4	total tips received by each driver
+    5   Statistics should include drivers who have logged out.
+    */
 
     Summary();
     /*
@@ -20,51 +30,43 @@ public:
      * It only sets the values of all data members to their default values
      */
 
-    int totalDeliveries();
-    /*
-    * Pre:none
-    * Post: This method adds a delivery to the total number of deliveries then returns that number.
-    *
-    * This function returns an int value representing the total number of deliveries made.
-     * It does this using @totalDeliveries
-    */
-
-    double avgDeliveryTime(Time deliverTime, Time arriveTime) throw (logic_error);
+    void Summary:: deliveryInformation(int deliveries, double tip, string driver,
+                                       Time departTime, Time dropOffTime, Time returnTime);
     /*
     * Pre:Requires that a delivery time and arrive time be provided.
      * If the delivery time is 0 or <1, a logic error is thrown
     * Post:Returns the average delivery time for all deliveries made
 
     * This function returns an double value representing the average delivery time.
-    * It does this by manipulating the private variable @averageTime
+    * It does this by manipulating the private variable @averageDeliveryTime
     */
 
-    int deliveryByDriver()throw (logic_error);
+    void driverLoginInfo(int delivery, Time );
     /*
     * Pre:
     * Post:
 
     * This function returns an double value representing the average delivery time.
-    * It does this by manipulating the private variable @averageTime
+    * It does this by manipulating the private variable @averageDeliveryTime
     */
 
-    double avgDepartToDeliverTime()throw (logic_error);//this should go in driver class
+    void Summary:: overView();//this should go in driver class
     /*
     * Pre:
     * Post:
 
     * This function returns an double value representing the average delivery time.
-    * It does this by manipulating the private variable @averageTime
+    * It does this by manipulating the private variable @averageDeliveryTime
     */
-    double totalDrivingTime()throw (logic_error);//this should go in driver class
     /*
     * Pre:
     * Post:
 
     * This function returns an double value representing the average delivery time.
-    * It does this by manipulating the private variable @averageTime
+    * It does this by manipulating the private variable @averageDeliveryTime
     */
-    double totalTips(double tipAmount)throw (logic_error);
+
+
     /*
     * Pre: A given tip amount must be provided. If tip is less than 0 a logic error is thrown
     * Post: Returns a the total value of tips received
@@ -73,41 +75,98 @@ public:
     * It does this by manipulating the private variable @totalTips
     */
 
+    /**-----------------------------------------------------------------------*/
+    void totalAmountMade();
+    /*
+    * Pre:
+    * Post: prints out the total amount of money earned through tips and orders and an average amount earned per delivery
+
+    * This function returns an double value representing the total number of tips received.
+    * It does this by manipulating the private variable @totalTips
+    */
+
+    void overView();
 private:
     int totalDeliveries;
-    double averageTime;
     double totalTips;
+    Time avgDeliveryTime
+    Time totalDrivingTime
+    queue loggedIn<>//list of drivers and their deliveries
 
 };
 
-
-
-void Summary:: totalDeliveries(int ){
+Summary:: summary(){
     totalDeliveries = 0;
-    averageTime = 0.0;
     totalTips = 0.0;
+    avgDeliveryTime = 0.0;
+    totalDrivingTime = 0.0;
 }
 
 
-double Summary:: avgDeliveryTime(int deliveryTime){
+
+//departTime is then driver left the store, dropOffTime is when they delivered the order,
+// and returnTime is when they return to the store
+void Summary:: deliveryInformation(int deliveries, double tip, string driver,
+                                Time departTime, Time dropOffTime, Time returnTime){
+
+//    1	total number of deliveries completed
+//    1	average time per order (from “order” to “deliver”)
+//    1	total driving time on completed trips for each driver (from “depart” to “return”)
+
+    //possible structure
+    // -------
+    // | total deliveries | average time per delivery | total driving time | total tips |
+    if (driver is in list){
+        add orders to their count
+        update average delivery time
+        update total time time += (returnTime - arriveTime)
+        tips += tips
+    }
+    else{
+        add them to the list
+        add to their count
+        add orders to their count
+        update average delivery time
+        update total time time += (returnTime - arriveTime)
+        tips += tips
+    }
+
+    totalTips += tip;
+    totalDrivingTime += (arriveTime - departTime);
+    totalDeliveries += deliveries;
+    avgDeliveryTime = (dropOffTime - dapartTime) / totalDeliveries;
+}
+
+void Summary:: driverLoginInfo(int delivery, Time ){
+
+    if(driver is logged in){
+        add to logged in queue
+    }
+    else{
+        add them to looged out queue
+    }
 
 }
 
-int Summary:: deliveryByDriver(){
+void Summary:: overView(){
+    /*
+A manager uses this command to view summary statistics on orders and drivers, specifically:
+1	total number of deliveries completed
+1	average time per order (from “order” to “deliver”)
 
-}
+    2	number of deliveries completed by each driver
+    2	average time per completed delivery for each driver (from “depart” to “deliver”)
+    2	total driving time on completed trips for each driver (from “depart” to “return”)
+    2	total tips received by each driver
+3   Statistics should include drivers who have logged out.
+*/
 
-double Summary:: avgDepartToDeliverTime(){
-
-}
-
-
-double Summary:: totalDrivingTime(){
-
-}
-
-double Summary:: totalTips(){
-
+    //this should have a segment that goes through the list of drivers and prints out their order count
+    cout << "Over view of restaurant statistics"
+            "\nTotal number of deliveries: " << totalDeliveries <<
+            "\nAverage delivery time (from departure to drop off): " << avgDeliveryTime <<
+            "\n"
+            deliveryInformation() <<
 }
 
 #endif
