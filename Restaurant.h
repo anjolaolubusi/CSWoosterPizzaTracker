@@ -33,13 +33,10 @@ public:
 
     void deliver(Driver* driver, const Time time, const float tip);
 
-<<<<<<< HEAD
-=======
     Driver* getDriver(const string name) const;
 
     void addDriver(Driver* driver) throw (logic_error);
 
->>>>>>> 9403194c2200ef220e432b48dc0b66cfdb1202f4
 
 private:
     vector<Driver*> driver_list; //vector containing all of the drivers.
@@ -52,11 +49,7 @@ private:
 
     int totalOrderTime; //total time of all orders
 
-<<<<<<< HEAD
     float averageOrderTime() const;//returns the average time for each order
-=======
-     float averageOrderTime() const;//returns the average time for each order
->>>>>>> 9403194c2200ef220e432b48dc0b66cfdb1202f4
 
 };
 
@@ -64,7 +57,7 @@ Restaurant::Restaurant(): totalOrders(0), totalOrderTime(0)
 //pre-condition: none.
 //post-condition: creates a restaurant in an initial state, with no drivers or orders
 {
-    driver_list(15);
+
 }
 
 void Restaurant::status() const
@@ -74,42 +67,11 @@ void Restaurant::status() const
 
 }
 
-float Restaurant::averageOrderTime() const
-// pre-condition: none
-// post-condition: return average time per order. return N/A if there is no delivered order.
-{
-    float average_time = (totalOrders != 0) ? (totalOrderTime / totalOrders) : 0; //calculates the average time per order, 0 if there is no order
-
-    return average_time;
-}
-
 void Restaurant::summary() const
 //pre-condition:
 //post-condition
 {
-    //    1	total number of deliveries completed
-    //    1	average time per order (from “order” to “deliver”)
-    //    1	total driving time on completed trips for each driver (from “depart” to “return”)
 
-    //possible structure
-    // -------
-    // Name | total deliveries | average time per delivery | total driving time | total tips |
-    cout << "This is the potential setup\n"
-            "Name | total deliveries | average time per delivery | total driving time | total tips |";
-    for (vector<Driver*>::const_iterator driver = driver_list.begin(); driver != driver_list.end(); driver++)
-    {
-        cout << "Driver | " << (**driver).getName() << endl;
-        cout << "     Number of deliveries completed: " << (**driver).getTotalDeliveries() << endl;
-        cout << "     Average time per delivery: ";
-
-        if ((**driver).get() == 0) // if driver did not make any delivery, print "N/A"
-            cout << "N/A" << endl;
-        else
-            cout << fixed << setprecision(1) << (**driver).averageDeliveryTime() << endl;
-
-        cout << "     Total driving time: " << (**driver).getTotalMinDriving() << endl;
-        cout << "     Total tips: " << fixed << setprecision(2) << (**driver).getTotalTips() << endlp;
-    }
 }
 
 void Restaurant::addOrder(Order* order)
@@ -151,10 +113,6 @@ void Restaurant::deliver(Driver* driver, const Time time, const float tip)
 
     (*driver).deliver(time, tip);
     totalOrders++;
-<<<<<<< HEAD
-    totalOrderTime += (*driver).getOrder().Order::deliveryTime();
-
-=======
     Time tempTime(0, 0);
     totalOrderTime += tempTime.elapsedTime(tempTime, (*driver).getOrder().getDeliverTime());
 
@@ -167,7 +125,6 @@ float Restaurant::averageOrderTime() const
     float average_time = (totalOrders != 0) ? (totalOrderTime / totalOrders) : 0; //calculates the average time per order, 0 if there is no order
 
     return average_time;
->>>>>>> 9403194c2200ef220e432b48dc0b66cfdb1202f4
 }
 
 Driver* Restaurant::getDriver(const string name) const

@@ -16,15 +16,9 @@ public:
     void setTime(int myHour, int myMinute);// Sets the time variables
     string GetInfo(); //Returns the address, item and quantity
     void setInfo(string myInfo); // Sets the extra infomation
-<<<<<<< HEAD
-  //  Order& operator= (Order otherOrder); // Copy Constructor
-  //  void PrintOrder(Order& otherOrder2); // Prints the time and infomation
-   // string GetInfo(); //Returns the address, item and quanity
-=======
     Order& operator= (Order otherOrder); // Copy Constructor
     void PrintOrder(Order& otherOrder2); // Prints the time and infomation
->>>>>>> 9403194c2200ef220e432b48dc0b66cfdb1202f4
-   // void setInfo(string myInfo); // Sets the extra infomation
+    // void setInfo(string myInfo); // Sets the extra infomation
     string PrintDriver(); //Outputs the current driver
     Time getDepartedTime(); //Returns the departed time variables
     void SetTimeDelivered(int myHour, int myMinute); //Sets the hour and the minute of departTime
@@ -32,39 +26,30 @@ public:
     void depart(Time time, string driverName);
 
 private:
-Time mytime; //Time variales
-string info; // Infomation string
+    Time mytime; //Time variales
+    string info; // Infomation string
 //double averageOrderTime(Time myTime);
-string myDriver; //Current driver
-Time timeDeparted; // Time for departed
-Time timeDelivered; // Time for delivery
+    string myDriver; //Current driver
+    Time timeDeparted; // Time for departed
+    Time timeDelivered; // Time for delivery
 };
 
-<<<<<<< HEAD
-Order:: Order(){
+//pre-condition: None
+//post: Initalizes all the variables
+Order::Order(){
     info = "";
     myDriver = "";
 }
 
-Order:: ~Order(){
-=======
-//pre-condition: None
-//post: Initalizes all the variables
-Order::Order(){
-info = "";
-myDriver = "";
-}
-
 Order::~Order(){
->>>>>>> 9403194c2200ef220e432b48dc0b66cfdb1202f4
 
 }
 
 //pre-condition: None
 //post-condition: Copys data from another order
 Order::Order(Time TheTime, string myInfo){
-mytime = TheTime;
-info = myInfo;
+    mytime = TheTime;
+    info = myInfo;
 }
 
 //pre-condition: 0 <= Hour < 24 and 0<= Minute < 60
@@ -83,10 +68,10 @@ string Order::GetInfo(){
 //Post-condition: Copies data from another order
 Order& Order::operator= (Order otherOrder2){
     if(&otherOrder2 != this){
-    mytime = otherOrder2.mytime;
-    timeDeparted = otherOrder2.timeDeparted;
-    info = otherOrder2.info;
-    myDriver = otherOrder2.myDriver;
+        mytime = otherOrder2.mytime;
+        timeDeparted = otherOrder2.timeDeparted;
+        info = otherOrder2.info;
+        myDriver = otherOrder2.myDriver;
     }
     return *this;
 }
@@ -116,23 +101,23 @@ string Order::PrintDriver(){
 //Pre-condition: None
 //Post-condition: Returns the timeDeparted
 Time Order::getDepartedTime(){
-return timeDeparted;
+    return timeDeparted;
 }
 
 //Pre-condition: None
 //Post-condition: timeDeparted has new values
 void Order::SetTimeDelivered(int myHour, int myMinute){
-timeDelivered.setTime(myHour, myMinute);
+    timeDelivered.setTime(myHour, myMinute);
 }
 
 //Pre-condition: None
 //Post-condition: Returns the timeDelivery
 Time Order::getDeliverTime(){
-return timeDelivered;
+    return timeDelivered;
 }
 
 void Order::depart(Time time, string driverName){
-timeDeparted.setTime(time.getHour(), time.getMinute());
-myDriver = driverName;
+    timeDeparted.setTime(time.getHour(), time.getMinute());
+    myDriver = driverName;
 }
 #endif
