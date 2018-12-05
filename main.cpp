@@ -194,3 +194,14 @@ void print_help()
     cout << "  quit : Terminates the program" << endl;
     cout << endl;
 }
+
+void order(const Time& time, const string info, Restaurant& arestaurant) 
+{
+    Order* anOrder = new Order(time,info);
+    arestaurant.addOrder(anOrder);
+}
+
+void serve(const Time& time, Restaurant& arestaurant) 
+{
+    arestaurant.serveNextOrder();
+}
