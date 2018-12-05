@@ -141,7 +141,8 @@ int Commander(Driver myDriver){
     }
 }
 
-void login(string driver, Restaurant& arestaurant) throw (logic_error) {
+void login(string driver, Restaurant& arestaurant) throw (logic_error) 
+{
     Driver* DriverPtr =  arestaurant.getDriver(driver);
     if (DriverPtr == nullptr) {
         
@@ -153,27 +154,32 @@ void login(string driver, Restaurant& arestaurant) throw (logic_error) {
 }
 
 
-void logout(string driver, Restaurant& arestaurant) throw (logic_error){
+void logout(string driver, Restaurant& arestaurant) throw (logic_error)
+{
     
     Driver* DriverPtr =  arestaurant.getDriver(driver);
     
-    if (DriverPtr == nullptr) {
+    if (DriverPtr == nullptr) 
+    {
         throw logic_error("Driver does not exist");
     }
     (*DriverPtr).logout();
 }
-void depart(const Time& time, const string driver, Restaurant& arestaurant) {
+void depart(const Time& time, const string driver, Restaurant& arestaurant) 
+{
     Order*departOrder = arestaurant.departNextOrder();
     Driver*DriverPtr =  arestaurant.getDriver(driver);
     DriverPtr->depart(time, *departOrder);
 }
 
-void deliver(const Time& time, const string driver, const float tip, Restaurant& arestaurant) {
+void deliver(const Time& time, const string driver, const float tip, Restaurant& arestaurant) 
+{
     Driver*DriverPtr =  arestaurant.getDriver(driver);
     arestaurant.deliver(DriverPtr, time, tip);
 }
 
-void arrive(const Time& time, const string driver, Restaurant& arestaurant) {
+void arrive(const Time& time, const string driver, Restaurant& arestaurant) 
+{
     Driver*DriverPtr =  arestaurant.getDriver(driver);
     DriverPtr->arrive(time);
     
