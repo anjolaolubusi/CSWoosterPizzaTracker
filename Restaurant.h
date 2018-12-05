@@ -11,7 +11,7 @@
 #include <iomanip>
 #include <string>
 #include "Order.h"
-#include "driver.h"
+#include "Driver.h"
 #include "Time.h"
 
 
@@ -33,6 +33,13 @@ public:
 
     void deliver(Driver* driver, const Time time, const float tip);
 
+<<<<<<< HEAD
+=======
+    Driver* getDriver(const string name) const;
+
+    void addDriver(Driver* driver) throw (logic_error);
+
+>>>>>>> 9403194c2200ef220e432b48dc0b66cfdb1202f4
 
 private:
     vector<Driver*> driver_list; //vector containing all of the drivers.
@@ -45,7 +52,11 @@ private:
 
     int totalOrderTime; //total time of all orders
 
+<<<<<<< HEAD
     float averageOrderTime() const;//returns the average time for each order
+=======
+     float averageOrderTime() const;//returns the average time for each order
+>>>>>>> 9403194c2200ef220e432b48dc0b66cfdb1202f4
 
 };
 
@@ -140,8 +151,51 @@ void Restaurant::deliver(Driver* driver, const Time time, const float tip)
 
     (*driver).deliver(time, tip);
     totalOrders++;
+<<<<<<< HEAD
     totalOrderTime += (*driver).getOrder().Order::deliveryTime();
 
+=======
+    Time tempTime(0, 0);
+    totalOrderTime += tempTime.elapsedTime(tempTime, (*driver).getOrder().getDeliverTime());
+
+}
+
+float Restaurant::averageOrderTime() const
+// pre-condition: none
+// post-condition: return average time per order. return N/A if there is no delivered order.
+{
+    float average_time = (totalOrders != 0) ? (totalOrderTime / totalOrders) : 0; //calculates the average time per order, 0 if there is no order
+
+    return average_time;
+>>>>>>> 9403194c2200ef220e432b48dc0b66cfdb1202f4
+}
+
+Driver* Restaurant::getDriver(const string name) const
+{
+    vector<Driver*>::const_iterator driver = driver_list.begin();
+
+    Driver* driverPtr = nullptr;
+    bool driverExists = false;
+
+    while (!driverExists && driver != driver_list.end()) //iterates through the driver list
+    {
+        if ((**driver).getName() == name) //checks if a driver with that name already exists in the system
+        {
+            driverPtr = *driver;
+            driverExists = true;
+        }
+        driver++;
+    }
+
+    return driverPtr;
+}
+
+void Restaurant::addDriver(Driver* driver) throw (logic_error)
+{
+    if (getDriver((*driver).getName()) != nullptr)
+        throw logic_error("Driver with this name already exists");
+
+    driver_list.push_back(driver); //adds driver to driver list
 }
 
 #endif /* restaurant_h */
