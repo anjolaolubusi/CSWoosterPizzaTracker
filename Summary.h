@@ -93,6 +93,7 @@ private:
     Time totalDrivingTime;
     queue loggedIn<string>;//list of drivers and their deliveries
     queue loggedOff<string>;
+    vector <list<string>> HashTable;
 };
 
 Summary:: summary(){
@@ -100,6 +101,10 @@ Summary:: summary(){
     totalTips = 0.0;
     avgDeliveryTime = 0.0;
     totalDrivingTime = 0.0;
+    loggedIn<string>;//list of drivers and their deliveries
+    loggedOff<string>;
+    vector<list<string>> HashTable
+    driver = 0;
 }
 
 
@@ -115,8 +120,27 @@ void Summary:: deliveryInformation(int deliveries, double tip, string driver,
 
     //possible structure
     // -------
-    // | total deliveries | average time per delivery | total driving time | total tips |
-    if (driver is in list){
+    // Name | total deliveries | average time per delivery | total driving time | total tips |
+    int index;
+    int sum = 0;
+    int i = 0;
+    string :: iterator it = driver.begin();
+    if(driver.length() >= 3) {
+        while(i < 3) {
+            sum = sum + int(*it);
+            it++;
+            i++;
+        }
+    }
+    else {
+        while(i < driver.length()) {
+            sum = sum + int(*it);
+            it++;
+            i++;
+        }
+    }
+    index = sum % tableSize;
+    if (){
         add orders to their count
         update average delivery time
         update total time time += (returnTime - arriveTime)
