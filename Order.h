@@ -16,9 +16,9 @@ public:
     void setTime(int myHour, int myMinute);// Sets the time variables
     string GetInfo(); //Returns the address, item and quantity
     void setInfo(string myInfo); // Sets the extra infomation
-    Order& operator= (Order otherOrder); // Copy Constructor
-    void PrintOrder(Order& otherOrder2); // Prints the time and infomation
-    string GetInfo(); //Returns the address, item and quanity
+  //  Order& operator= (Order otherOrder); // Copy Constructor
+  //  void PrintOrder(Order& otherOrder2); // Prints the time and infomation
+   // string GetInfo(); //Returns the address, item and quanity
    // void setInfo(string myInfo); // Sets the extra infomation
     Order& operator= (Order otherOrder); // Copy Constructor
     void PrintOrder(Order& otherOrder2); // Prints the time and infomation
@@ -35,12 +35,12 @@ private:
     double averageOrderTime(Time myTime);
 };
 
-Order(){
+Order:: Order(){
     info = "";
     myDriver = "";
 }
 
-~Order(){
+Order:: ~Order(){
 
 }
 

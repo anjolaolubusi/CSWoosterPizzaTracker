@@ -1,6 +1,7 @@
 
 #include <iostream>
 #include "Driver.h"
+#include "Restaurant.h"
 
 using namespace std;
 void login(string driver, Restaurant& aRestaurant) throw (logic_error);
