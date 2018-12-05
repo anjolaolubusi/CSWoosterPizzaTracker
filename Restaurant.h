@@ -75,6 +75,9 @@ void Restaurant::summary() const
 }
 
 Driver* Restaurant::getDriver(const string name) const
+//pre-condition: none
+//post-condition: If a driver with the given name exists within the system (logged in or not), 
+//returns a pointer to that driver. Otherwise, returns a null pointer.
 {
     vector<Driver*>::const_iterator driver = driver_list.begin();
     
@@ -95,6 +98,8 @@ Driver* Restaurant::getDriver(const string name) const
 }
 
 void Restaurant::addDriver(Driver* driver) throw (logic_error)
+//pre-condition: none
+//post-condition: Adds the given driver to the system.
 {
     if (getDriver((*driver).getName()) != nullptr)
         throw logic_error("Driver with this name already exists");
@@ -102,9 +107,9 @@ void Restaurant::addDriver(Driver* driver) throw (logic_error)
     driver_list.push_back(driver); //adds driver to driver list
 }
 
-//Pre: none
-//Post: Adds the given order to the system, enqueuing it for cooking.
 void Restaurant::addOrder(Order* order)
+//pre-condition: none
+//post-condition: Adds the given order to the system, enqueuing it for cooking.
 {
     order_queue.push_back(order); //adds order to cooking queue
 }
