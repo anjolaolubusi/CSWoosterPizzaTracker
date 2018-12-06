@@ -1,6 +1,8 @@
 #include <iostream>
 #include "Driver.h"
 #include "Restaurant.h"
+#include "Order.h"
+#include "Time.h"
 
 using namespace std;
 void login(string driver, Restaurant& aRestaurant) throw (logic_error);
@@ -123,7 +125,7 @@ int Commander(Restaurant myRestaurant){
         timeMan.setTime(stoi(cmd.substr(blankspace-3, blankspace-1)), stoi(cmd.substr(blankspace+1, blankspace+3)));
         order(timeMan, cmd.substr(blankspace+4), myRestaurant);
         Commander(myRestaurant);
-    }else{
+    } else if(cmd == "print order"){
         Commander(myRestaurant);
     }
 }
