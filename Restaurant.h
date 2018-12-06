@@ -27,9 +27,9 @@ public:
  
     void addOrder(Order* order);
    
-    void serveNextOrder() throw (logic_error);
+    void serveNextOrder();
     
-    Order* departNextOrder() throw (logic_error);
+    Order* departNextOrder();
     
     void deliver(Driver* driver, const Time time, const float tip);
     
@@ -77,24 +77,24 @@ void Restaurant::addOrder(Order* order)
     order_queue.push_back(order); //adds order to cooking queue
 }
 
-void Restaurant::serveNextOrder() throw (logic_error)
+void Restaurant::serveNextOrder() 
 //pre-condition: the cooking queue is not empty.
 //post-condition: dequeues oldest order from the cooking queue and enqueues it for departure.
 
 {
     if (order_queue.size() == 0)
-        throw logic_error("No uncooked order");
+        cout << "No uncooked order" << endl;
     
     delivery_queue.push_back(order_queue.front()); //adds next order to delivery queue
     order_queue.pop_front();
 }
 
-Order* Restaurant::departNextOrder() throw (logic_error)
+Order* Restaurant::departNextOrder() 
 //pre-condition: the departure queue is not empty.
 //post-condition: removes the oldest order from the departure queue and returns it
 {
     if (delivery_queue.size() == 0)
-        throw logic_error("No order to be delivered");
+        cout << "No order to be delivered" << endl;
     
     Order* departing_order = delivery_queue.front();
     delivery_queue.pop_front();
