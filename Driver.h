@@ -20,9 +20,9 @@ public:
     
     Driver& operator=(Driver& anotherDriver);
     
-    void login() throw (logic_error);
+    void login();
     
-    void logout() throw (logic_error);
+    void logout();
     
     void depart(const Time time, const Order o);
     
@@ -178,7 +178,7 @@ void Driver::deliver(const Time time, const float tip) throw(logic_error)
     totalMinDelivering = Time::elapsedMin(timeDepart, timeDeliver);
 }
 
-void Driver::arrive(const Time time) throw (logic_error)
+void Driver::arrive(const Time time)
 //pre-condition: Driver is on delivery and the order has been delivered.
 //post-condition: Order has been delivered.
 {
