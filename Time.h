@@ -62,7 +62,7 @@ return minute;
 
 
 ostream& operator << (ostream& out, Time& myTime){
-cout << "Hour " << myTime.getHour() << " Minute " << myTime.getMinute() << endl;
+cout << myTime.getHour() << ":" << myTime.getMinute();
 }
 
 Time& Time::operator= (Time& otherTime){

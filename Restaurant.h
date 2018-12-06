@@ -21,13 +21,13 @@ class Restaurant
 public:
     Restaurant();
 
-    void status() const;
+    void status();
 
     void summary() const;
 
     void addOrder(Order* order);
 
-    void serveNextOrder() throw (logic_error);
+    void serveNextOrder(Time timeman) throw (logic_error);
 
     Order* departNextOrder() throw (logic_error);
 
@@ -60,10 +60,68 @@ Restaurant::Restaurant(): totalOrders(0), totalOrderTime(0)
 
 }
 
-void Restaurant::status() const
-//pre-condition:
-//post-condition:
+void Restaurant::status()
+//pre-condition:None
+//post-condition: Prints out the orders and curhent drivers
+// The code by going through the queue and print the orders that statisfy each conditon
 {
+cout << "Orders waiting to be cooked: " << endl;
+for (deque<Order*> CopyOfOrderQueue = order_queue; !CopyOfOrderQueue.empty(); CopyOfOrderQueue.pop_front()){
+    cout << "\t";
+    CopyOfOrderQueue.front()->PrintOrder(*CopyOfOrderQueue.front());
+}
+
+cout << "\n";
+
+cout << "Orders waiting to be delivered: " << endl;
+for (deque<Order*> CopyOfOrderQueue = delivery_queue; !CopyOfOrderQueue.empty(); CopyOfOrderQueue.pop_front()){
+    cout << "\t";
+    CopyOfOrderQueue.front()->PrintOrder(*CopyOfOrderQueue.front());
+}
+
+cout << "\n";
+
+cout << "Orders that has been delivered: " << endl;
+for (deque<Order*> CopyOfOrderQueue = delivery_queue; !CopyOfOrderQueue.empty(); CopyOfOrderQueue.pop_front()){
+    if(CopyOfOrderQueue.front()->getDepartedTime().getHour() != -1 && CopyOfOrderQueue.front()->getDepartedTime().getMinute() != -1){
+    cout << "\t";
+    CopyOfOrderQueue.front()->PrintOrder(*CopyOfOrderQueue.front());
+    }
+}
+
+cout << "\n";
+
+cout << "Drivers in the resturant: " << endl;
+for (vector<Driver*> CopyOfDriverQueue = driver_list; !CopyOfDriverQueue.empty(); CopyOfDriverQueue.pop_back()){
+    if(!CopyOfDriverQueue.back()->isDelivering() && !CopyOfDriverQueue.back()->isDelivering() && CopyOfDriverQueue.back()->loggedIn()){
+    cout << "\t";
+    cout << CopyOfDriverQueue.back()->getName();
+    }
+}
+
+
+cout << "\n";
+
+cout << "Drivers out for delivery: " << endl;
+for (vector<Driver*> CopyOfDriverQueue = driver_list; !CopyOfDriverQueue.empty(); CopyOfDriverQueue.pop_back()){
+    if(CopyOfDriverQueue.back()->isDelivering()){
+    cout << "\t";
+    cout << "Driver: " << CopyOfDriverQueue.back()->getName() << " ";
+    Order temp = CopyOfDriverQueue.back()->getOrder();
+    temp.PrintOrder(temp);
+    }
+}
+
+cout << "\n";
+
+cout << "Drivers coming back to the resturant: " << endl;
+for (vector<Driver*> CopyOfDriverQueue = driver_list; !CopyOfDriverQueue.empty(); CopyOfDriverQueue.pop_back()){
+    if(CopyOfDriverQueue.back()->isComingback()){
+    cout << "\t";
+    cout << "Driver: " << CopyOfDriverQueue.back()->getName() << " " << " Time arrived: " << CopyOfDriverQueue.back()->arrival().getHour() << ":" << CopyOfDriverQueue.back()->arrival().getMinute();
+    }
+}
+
 
 }
 
@@ -81,7 +139,7 @@ void Restaurant::addOrder(Order* order)
     order_queue.push_back(order); //adds order to cooking queue
 }
 
-void Restaurant::serveNextOrder() throw (logic_error)
+void Restaurant::serveNextOrder(Time timeman) throw (logic_error)
 //pre-condition: the cooking queue is not empty.
 //post-condition: dequeues oldest order from the cooking queue and enqueues it for departure.
 
@@ -89,6 +147,7 @@ void Restaurant::serveNextOrder() throw (logic_error)
     if (order_queue.size() == 0)
         throw logic_error("No uncooked order");
 
+    order_queue.front()->SetServeTime(timeman.getHour(), timeman.getMinute());
     delivery_queue.push_back(order_queue.front()); //adds next order to delivery queue
     order_queue.pop_front();
 }

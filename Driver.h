@@ -48,6 +48,11 @@ public:
 
     bool loggedIn() const;
 
+    bool isDelivering() const;
+
+    bool isComingback() const;
+
+    Time arrival() const;
 private:
     string name;//Driver's name
 
@@ -269,6 +274,18 @@ float Driver::averageDeliveryTime() const
 bool Driver::loggedIn() const
 {
     return isLoggedIn;
+}
+
+bool Driver::isDelivering() const{
+    return isOnDelivery;
+}
+
+bool Driver::isComingback() const{
+    return hasDelivered;
+}
+
+Time Driver::arrival() const{
+    return timeArrive;
 }
 
 #endif /* driver_h */

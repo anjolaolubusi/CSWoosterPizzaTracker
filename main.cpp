@@ -129,7 +129,7 @@ int Commander(Restaurant myRestaurant){
     if(cmd == "Quit" || cmd == "quit"){
         return 0; //Exits cleanly
     }else if(cmd.substr(0, blankspace) == "login"){
-        login(cmd.substr(blankspace+1), myRestaurant);
+        login(cmd.substr(blankspace+1), myRestaurant); //Grabs the name and shoves it to the login
         driver = cmd.substr(blankspace+1);
         Commander(myRestaurant);
     }else if(cmd.substr(0, blankspace) == "order"){
@@ -143,11 +143,12 @@ int Commander(Restaurant myRestaurant){
         cout << "Please log in" << endl;
         Commander(myRestaurant);
         }
-    } else if(cmd.substr(0, blankspace) == "logout"){
+    }else if(cmd.substr(0, blankspace) == "logout"){
         logout(cmd.substr(blankspace+1), myRestaurant);
         Commander(myRestaurant);
-    } else if(cmd.substr(0, blankspace) == "serve"){
+    }else if(cmd.substr(0, blankspace) == "serve"){
         Time timeMan;
+        blankspace = cmd.find_first_of(":");
         timeMan.setTime(stoi(cmd.substr(blankspace-3, blankspace-1)), stoi(cmd.substr(blankspace+1, blankspace+3)));
         serve(timeMan, myRestaurant);
         Commander(myRestaurant);
@@ -165,7 +166,6 @@ int Commander(Restaurant myRestaurant){
     }else if(cmd.substr(0, blankspace) == "deliver"){
         if(driver != ""){
         blankspace = cmd.find_first_of(":"); //
-        cout << blankspace << endl;
         Time timeMan;
         timeMan.setTime(stoi(cmd.substr(blankspace-3, blankspace-1)), stoi(cmd.substr(blankspace+1, blankspace+3)));
         float myTip = stof(cmd.substr(cmd.rfind(" ")+1));
@@ -173,7 +173,7 @@ int Commander(Restaurant myRestaurant){
         blankspace = cmd.find(" ");
         string NewDriver = cmd.substr(blankspace+1, cmd.rfind(" ")-3);
         deliver(timeMan, NewDriver, myTip, myRestaurant);
-        Commander(myRestaurant);
+        //Commander(myRestaurant);
         } else {
         cout << "Please log in" << endl;
         Commander(myRestaurant);
@@ -184,6 +184,14 @@ int Commander(Restaurant myRestaurant){
         Time timeMan;
         timeMan.setTime(stoi(cmd.substr(blankspace-3, blankspace-1)), stoi(cmd.substr(blankspace+1, blankspace+3)));
         arrive(timeMan, cmd.substr(blankspace+4), myRestaurant);
+        Commander(myRestaurant);
+        } else {
+        cout << "Please log in" << endl;
+        Commander(myRestaurant);
+        }
+    }else if(cmd.substr(0, blankspace) == "status"){
+        if(driver != ""){
+        myRestaurant.status();
         Commander(myRestaurant);
         } else {
         cout << "Please log in" << endl;
@@ -258,5 +266,5 @@ void order(const Time& time, const string info, Restaurant& arestaurant)
 
 void serve(const Time& time, Restaurant& arestaurant)
 {
-    arestaurant.serveNextOrder();
+    arestaurant.serveNextOrder(time);
 }

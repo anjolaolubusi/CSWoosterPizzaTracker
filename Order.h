@@ -24,9 +24,11 @@ public:
     void SetTimeDelivered(int myHour, int myMinute); //Sets the hour and the minute of departTime
     Time getDeliverTime(); //Returns the departed time variables
     void depart(Time time, string driverName);
+    void SetServeTime(int myHour, int myMinute);
 
 private:
 Time mytime; //Time variales
+Time servetime;
 string info; // Infomation string
 //double averageOrderTime(Time myTime);
 string myDriver; //Current driver
@@ -79,9 +81,16 @@ Order& Order::operator= (Order otherOrder2){
 // Pre-condition: None
 // Post-condition: Prints out the data of the order
 void Order::PrintOrder(Order& otherOrder2){
-    cout << otherOrder2.GetInfo() << endl;
-    cout << otherOrder2.mytime << endl;
-    cout << otherOrder2.PrintDriver() << endl;
+cout << "Order: " << otherOrder2.GetInfo();
+    if(servetime.getHour() != -1 && servetime.getMinute() != -1){
+        cout << " Time served: " << servetime;
+    } else if(timeDeparted.getHour() != -1 && timeDeparted.getMinute() != -1){
+        cout << " Time departed: " << timeDeparted;
+    } else if(timeDelivered.getHour() != -1 && timeDelivered.getMinute() != -1){
+        cout << "Time delivered: " << timeDelivered;
+    }else {
+    cout << " Time: " << mytime;
+    }
 }
 
 
@@ -119,5 +128,9 @@ return timeDelivered;
 void Order::depart(Time time, string driverName){
 timeDeparted.setTime(time.getHour(), time.getMinute());
 myDriver = driverName;
+}
+
+void Order::SetServeTime(int myHour, int myMinute){
+servetime.setTime(myHour, myMinute);
 }
 #endif
