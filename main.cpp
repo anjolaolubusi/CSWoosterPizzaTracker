@@ -33,74 +33,10 @@ int main()
 
     string info; //a string to hold an order's info
 
-    print_help();
+//    print_help();
 
-    Commander(Dominios);
-/**
-    cin >> command;
-**/
-    /*
-     while (command != "quit") {
-         //Handles input and calls the corresponding function
-         if (command == "help") {
-             print_help();
-         }
-         else if (command == "login")
-         {
-             cin >> driver;
-             login(driver, Dominios);
-         }
-         else if (command == "logout")
-         {
-             cin >> driver;
-             logout(driver, Dominios);
-         }
-         else if (command == "order")
-         {
-             cin >> string_time;
-             getline(cin, info);
-             Time time(string_time);
-             order(time, info, Dominios);
-         }
-         else if (command == "serve")
-         {
-             cin >> string_time;
-             Time time(string_time);
-             serve(time, Dominios);
-         }
-         else if (command == "depart")
-         {
-             cin >> string_time;
-             Time time(string_time);
-             cin >> driver;
-             depart(time, driver, Dominios);
-         }
-         else if (command == "deliver")
-         {
-             cin >> string_time;
-             Time time(string_time);
-             cin >> driver;
-             float tip;
-             cin >> tip;
-             deliver(time, driver, tip, Dominios);
-         }
-         else if (command == "arrive")
-         {
-             cin >> string_time;
-             Time time(string_time);
-             cin >> driver;
-             arrive(time, driver, Dominios);
-         }
-         else if (command == "status")
-             status(Dominios);
-         else if (command == "summary")
-             summary(Dominios);
-         else
-             cout << "Not a valid command" << endl;
-         cin >> command;
-     }
-     return 0;
- }*/
+    Dominios.summary();
+//    Commander(Dominios);
 }
 
 //Command line function:
