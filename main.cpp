@@ -33,10 +33,9 @@ int main()
 
     string info; //a string to hold an order's info
 
-//    print_help();
+    print_help();
 
-    Dominios.summary();
-//    Commander(Dominios);
+    Commander(Dominios);
 }
 
 //Command line function:
@@ -55,6 +54,9 @@ int Commander(Restaurant myRestaurant){
         login(cmd.substr(blankspace+1), myRestaurant); //Grabs the name and shoves it to the login
         driver = cmd.substr(blankspace+1);
         Commander(myRestaurant);
+    }else if(cmd.substr(0, blankspace) == "logout"){
+        logout(cmd.substr(blankspace+1), myRestaurant);
+        Commander(myRestaurant);
     }else if(cmd.substr(0, blankspace) == "order"){
         if(driver != ""){
             blankspace = cmd.find_first_of(":"); //
@@ -66,9 +68,6 @@ int Commander(Restaurant myRestaurant){
             cout << "Please log in" << endl;
             Commander(myRestaurant);
         }
-    }else if(cmd.substr(0, blankspace) == "logout"){
-        logout(cmd.substr(blankspace+1), myRestaurant);
-        Commander(myRestaurant);
     }else if(cmd.substr(0, blankspace) == "serve"){
         Time timeMan;
         blankspace = cmd.find_first_of(":");
@@ -119,7 +118,8 @@ int Commander(Restaurant myRestaurant){
             cout << "Please log in" << endl;
             Commander(myRestaurant);
         }
-    }else{
+    }else if (cmd.substr(0, blankspace) == "summary"){
+        myRestaurant.summary();
         Commander(myRestaurant);
     }
 }
@@ -178,6 +178,20 @@ void print_help()
     cout << "  summary : Statistics of all drivers and orders" << endl;
     cout << "  quit : Terminates the program" << endl;
     cout << endl;
+    cout << "Would you like to see an test case? (Yes or No)";
+
+    string answer;
+    cin >> answer;
+    getline(cin, answer);
+    tolower(answer);
+    if(answer == "yes"){
+        cout << "Command: login a"
+                "Command: order 01:00 large peperoni pizza"
+                "Command: depart Frank 10:36" << endl;
+    }
+    else if (answer != "no"){
+        cout << "Please enter Yes or no: ";
+    }
 }
 
 void order(const Time& time, const string info, Restaurant& arestaurant)
