@@ -71,30 +71,26 @@ void Restaurant::summary() const
 //pre-condition:
 //post-condition
 {
-    /**
-     * I need to change this later on before submission
-     */
-    cout << "This is the potential setup\n"
-            "Name | total deliveries | average time per delivery | total driving time | total tips |";
-
-
-    cout << "Number of orders completed: " << totalOrders << endl;
+    cout << "This is format driver information is provided in:\n\n"
+            "DRIVER NAME | NUMBR OF DELIVERIES | AVERGAE DELIVERY TIME |"
+            " TOTAL DRIVING TIME | TOTAL TIPS\n" << endl;
+    cout << "The total number of orders completed was " << totalOrders << "orders" << endl;
     cout << "Average time per order: " << fixed << setprecision(1) << averageOrderTime() << endl;
 
     //iterates through the driver list and prints out information of each driver
     for (vector<Driver*>::const_iterator driver = driver_list.begin(); driver != driver_list.end(); driver++)
     {
-        cout << "Driver " << (**driver).getName() << endl;
-        cout << "     Number of deliveries completed: " << (**driver).getTotalDeliveries() << endl;
-        cout << "     Average time per delivery: ";
+        cout << "Driver: " << (**driver).getName() << " | ";
+        cout << "Number of deliveries completed: " << (**driver).getTotalDeliveries() << " | ";
+        cout << "Average time per delivery: ";
 
         if ((**driver).averageDeliveryTime() == 0) // if driver did not make any delivery, print "N/A"
             cout << "N/A" << endl;
         else
-            cout << fixed << setprecision(1) << (**driver).averageDeliveryTime() << endl;
+            cout << fixed << setprecision(1) << (**driver).averageDeliveryTime() << " | ";
 
-        cout << "     Total driving time: " << (**driver).getTotalMinDriving() << endl;
-        cout << "     Total tips: " << fixed << setprecision(2) << (**driver).getTotalTips() << endl;
+        cout << "Total driving time: " << (**driver).getTotalMinDriving() << " | ";
+        cout << "Total tips: " << fixed << setprecision(2) << (**driver).getTotalTips() << endl;
     }
 
     cout << endl;
