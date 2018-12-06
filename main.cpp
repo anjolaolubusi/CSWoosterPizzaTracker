@@ -2,9 +2,9 @@
 #include "Driver.h"
 
 using namespace std;
-void login(string driver, Restaurant& aRestaurant) throw (logic_error);
+void login(string driver, Restaurant& aRestaurant);
 
-void logout(string driver, Restaurant& aRestaurant) throw (logic_error);
+void logout(string driver, Restaurant& aRestaurant);
 
 void depart(const Time& time, const string driver, Restaurant& aRestaurant);
 
@@ -140,45 +140,52 @@ int Commander(Driver myDriver){
     }
 }
 
-void login(string driver, Restaurant& arestaurant) throw (logic_error) {
+void login(string driver, Restaurant& arestaurant) 
+{
     Driver* DriverPtr =  arestaurant.getDriver(driver);
-    if (DriverPtr == nullptr) {
+    if (DriverPtr == nullptr) 
+    {
         
         Driver* aDriver = new Driver(driver);
         arestaurant.addDriver(aDriver);
     }
     else
-        throw logic_error("The driver is already logged in");
+        cout << "The driver is already logged in" << endl;
 }
 
 
-void logout(string driver, Restaurant& arestaurant) throw (logic_error){
+void logout(string driver, Restaurant& arestaurant)
+{
     
     Driver* DriverPtr =  arestaurant.getDriver(driver);
     
     if (DriverPtr == nullptr) {
-        throw logic_error("Driver does not exist");
+        cout << "Driver does not exist" << endl;
     }
     (*DriverPtr).logout();
 }
-void depart(const Time& time, const string driver, Restaurant& arestaurant) {
+
+void depart(const Time& time, const string driver, Restaurant& arestaurant) 
+{
     Order*departOrder = arestaurant.departNextOrder();
     Driver*DriverPtr =  arestaurant.getDriver(driver);
     DriverPtr->depart(time, *departOrder);
 }
 
-void deliver(const Time& time, const string driver, const float tip, Restaurant& arestaurant) {
+void deliver(const Time& time, const string driver, const float tip, Restaurant& arestaurant) 
+{
     Driver*DriverPtr =  arestaurant.getDriver(driver);
     arestaurant.deliver(DriverPtr, time, tip);
 }
 
-void arrive(const Time& time, const string driver, Restaurant& arestaurant) {
+void arrive(const Time& time, const string driver, Restaurant& arestaurant) 
+{
     Driver*DriverPtr =  arestaurant.getDriver(driver);
     DriverPtr->arrive(time);
     
-   // pre-condition: None
-// post-condition: Print help.
 void print_help()
+// pre-condition: None
+// post-condition: Print help.
 {
     cout << endl << "Commands:" << endl;
     cout << "  help : Print help" << endl;
