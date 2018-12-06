@@ -9,6 +9,7 @@
 #include <string>
 #include "Time.h"
 #include "Order.h"
+#include "Restaurant.h"
 using namespace std;
 
 class Driver
