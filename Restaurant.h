@@ -4,7 +4,7 @@
 
 #ifndef restaurant_h
 #define restaurant_h
-
+#include <cmath>
 #include <iostream>
 #include <deque>
 #include <vector>
@@ -123,7 +123,36 @@ void Restaurant::summary() const
 //pre-condition:
 //post-condition
 {
+ cout << "This is format driver information is provided in:\n\n"
+            "DRIVER NAME | NUMBR OF DELIVERIES | AVERGAE DELIVERY TIME |"
+            " TOTAL DRIVING TIME | TOTAL TIPS\n" << endl;
+    cout << "The total number of orders completed was " << totalOrders << " orders" << endl;
+    int minute2 = averageOrderTime()/60;
+        int hour2 = averageOrderTime()/60;
+    cout << "Average time per order: " << fixed << setprecision(1) << hour2 << " Hours " << minute2 << " Minutes" << endl;
 
+    //iterates through the driver list and prints out information of each driver
+    for (vector<Driver*>::const_iterator driver = driver_list.begin(); driver != driver_list.end(); driver++)
+    {
+        cout << "Driver: " << (**driver).getName() << " | ";
+        cout << "Number of deliveries completed: " << (**driver).getTotalDeliveries() << " | ";
+        cout << "Average time per delivery: ";
+
+        if ((**driver).averageDeliveryTime() == 0) // if driver did not make any delivery, print "N/A"
+            cout << "N/A" << endl;
+        else{
+        int minute = remainder((**driver).averageDeliveryTime(), 60);
+        int hour = (**driver).averageDeliveryTime()/60;
+            cout << fixed << setprecision(1) << hour << " Hours " << minute << " Minutes" << " | ";
+        }
+
+        int minute3 = (**driver).getTotalMinDriving()/60;
+        int hour3 = (**driver).getTotalMinDriving()/60;
+        cout << "Total driving time: " << hour3 << " Hours " << minute3 << " Minutes" << " | ";
+        cout << "Total tips: " << fixed << setprecision(2) << (**driver).getTotalTips() << endl;
+    }
+
+cout << endl;
 }
 
 void Restaurant::addOrder(Order* order)
