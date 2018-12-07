@@ -2,6 +2,12 @@
 #include <iostream>
 #include "Driver.h"
 #include "Restaurant.h"
+#include <stdio.h>
+#include <ctype.h>
+#include <algorithm>
+#include <string>
+
+//Group Project: Anjolaoluwa, Chantell, Jack
 
 using namespace std;
 void login(string driver, Restaurant& aRestaurant) throw (logic_error);
@@ -44,6 +50,9 @@ int main()
 /**
 The idea is you would input a string and the compiler would scan the string for a command it recongize
 **/
+
+//pre-conditon: None
+//post-condition: Reads commands and processses them
 int Commander(Restaurant myRestaurant){
     string cmd;
     cout << " Command: ";
@@ -158,6 +167,8 @@ int Commander(Restaurant myRestaurant){
     }
 }
 
+//pre-condition: Driver is not logged in
+//post-condition: Driver is logged in
 void login(string driver, Restaurant& arestaurant) throw (logic_error) {
     Driver* DriverPtr =  arestaurant.getDriver(driver);
     if (DriverPtr == nullptr) {
@@ -169,7 +180,8 @@ void login(string driver, Restaurant& arestaurant) throw (logic_error) {
         cout << "The driver is already logged in";
 }
 
-
+//pre-condition: Driver is logged in
+//post-condition: Driver is logged out
 void logout(string driver, Restaurant& arestaurant) throw (logic_error){
 
     Driver* DriverPtr =  arestaurant.getDriver(driver);
@@ -179,17 +191,24 @@ void logout(string driver, Restaurant& arestaurant) throw (logic_error){
     }
     (*DriverPtr).logout();
 }
+
+//pre-condition: Driver is not on delivery and is logged in
+//post-condition: Driver is on delivery
 void depart(const Time& time, const string driver, Restaurant& arestaurant) {
     Order*departOrder = arestaurant.departNextOrder();
     Driver*DriverPtr =  arestaurant.getDriver(driver);
     DriverPtr->depart(time, *departOrder);
 }
 
+//pre-condition: Driver is on delivery and the order has not been delivered. Tip >= 0
+//post-condition: Order has been delivered.
 void deliver(const Time& time, const string driver, const float tip, Restaurant& arestaurant) {
     Driver*DriverPtr =  arestaurant.getDriver(driver);
     arestaurant.deliver(DriverPtr, time, tip);
 }
 
+//pre-condition: Driver is on delivery and the order has been delivered.
+//post-condition: Order has been delivered.
 void arrive(const Time& time, const string driver, Restaurant& arestaurant) {
     Driver*DriverPtr =  arestaurant.getDriver(driver);
     DriverPtr->arrive(time);
@@ -215,24 +234,29 @@ void print_help()
     cout << "Would you like to see an test case? (Yes or No)";
 
     string answer;
-    cin >> answer;
     getline(cin, answer);
-    //tolower(answer);
+    transform(answer.begin(), answer.end(), answer.begin(), ::tolower);
     if(answer == "yes"){
-        cout << "Command: login a"
-                "Command: order 01:00 large peperoni pizza"
-                "Command: depart Frank 10:36" << endl;
+        cout << "Command: login a" << endl;
+        cout << "Command: order 01:00 large peperoni pizza" << endl;
+        cout << "Command: depart Frank 10:36" << endl;
     }
     else if (answer != "no"){
-        cout << "Please enter Yes or no: ";
+
 }
 }
+
+
+//pre-conditons: We have a time variable, a string containing infomation, and Restaurant
+//post-conditions: We an order that is in a list
 void order(const Time& time, const string info, Restaurant& arestaurant)
 {
     Order* anOrder = new Order(time,info);
     arestaurant.addOrder(anOrder);
 }
 
+//pre-condition: We have a time and a Restaurant
+//post-condition: We move an order from one list to another
 void serve(const Time& time, Restaurant& arestaurant)
 {
     arestaurant.serveNextOrder(time);

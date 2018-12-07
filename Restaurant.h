@@ -16,7 +16,7 @@
 
 
 class Restaurant
-
+//Group Project: Anjolaoluwa, Chantell, Jack
 {
 public:
     Restaurant();
@@ -120,8 +120,8 @@ cout << "\n";
 }
 
 void Restaurant::summary() const
-//pre-condition:
-//post-condition
+//pre-condition: none
+//post-condition: Prints out a summary of the orders
 {
  cout << "This is format driver information is provided in:\n\n"
             "DRIVER NAME | NUMBR OF DELIVERIES | AVERGAE DELIVERY TIME |"
@@ -208,6 +208,8 @@ float Restaurant::averageOrderTime() const
     return average_time;
 }
 
+//pre-condition: a string has been inputted
+//post-condition: returns the driverpointer
 Driver* Restaurant::getDriver(const string name) const
 {
     vector<Driver*>::const_iterator driver = driver_list.begin();
@@ -228,6 +230,8 @@ Driver* Restaurant::getDriver(const string name) const
     return driverPtr;
 }
 
+//pre-conditon: we have a driver pointer
+//post-conditon: the driver gets added to the driver list
 void Restaurant::addDriver(Driver* driver) throw (logic_error)
 {
     if (getDriver((*driver).getName()) != nullptr)

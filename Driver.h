@@ -11,7 +11,7 @@
 #include "Order.h"
 
 using namespace std;
-
+//Group Project: Anjolaoluwa, Chantell, Jack
 class Driver
 {
 public:
@@ -278,14 +278,20 @@ bool Driver::loggedIn() const
     return isLoggedIn;
 }
 
+//pre-condition: none
+//post-condition: returns the value of isOnDelivering
 bool Driver::isDelivering() const{
     return isOnDelivery;
 }
 
+//pre-condition: none
+//post-condition: returns the value of isComingback
 bool Driver::isComingback() const{
     return hasDelivered;
 }
 
+//pre-condition: none
+//post-condition: returns the value of timeArrive
 Time Driver::arrival() const{
     return timeArrive;
 }

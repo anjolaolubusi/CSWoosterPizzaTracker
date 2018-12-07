@@ -7,7 +7,7 @@
 #include "Driver.h"
 
 using namespace std;
-
+//Group Project: Anjolaoluwa, Chantell, Jack
 class Order{
 public:
     Order(); //Constructor. Initalises the variables
@@ -125,11 +125,15 @@ Time Order::getDeliverTime(){
 return timeDelivered;
 }
 
+//pre-condtion: We have a time, a name of a driver
+//post-condition: The order has a departed time and the name of the driver that has departed
 void Order::depart(Time time, string driverName){
 timeDeparted.setTime(time.getHour(), time.getMinute());
 myDriver = driverName;
 }
 
+//pre-condtion: We have a number for the hour and the minute
+//post-condition: The order has a served time variable
 void Order::SetServeTime(int myHour, int myMinute){
 servetime.setTime(myHour, myMinute);
 }
