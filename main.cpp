@@ -173,7 +173,7 @@ int Commander(Restaurant myRestaurant){
         blankspace = cmd.find(" ");
         string NewDriver = cmd.substr(blankspace+1, cmd.rfind(" ")-3);
         deliver(timeMan, NewDriver, myTip, myRestaurant);
-        //Commander(myRestaurant);
+        Commander(myRestaurant);
         } else {
         cout << "Please log in" << endl;
         Commander(myRestaurant);

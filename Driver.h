@@ -9,6 +9,7 @@
 #include <string>
 #include "Time.h"
 #include "Order.h"
+
 using namespace std;
 
 class Driver
@@ -175,8 +176,9 @@ void Driver::deliver(Time time, const float tip) throw(logic_error)
     if (tip < 0)
         throw logic_error("Tip has to be equal to or greater than 0");
 
-    order.SetTimeDelivered(time.getHour(), time.getMinute());
-
+    int newHour = time.getHour();
+    int newMinute = time.getMinute();
+    order.SetTimeDelivered(newHour, newMinute);
     hasDelivered = true;
     timeDeliver = time;
     totalDeliveries++;

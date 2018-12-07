@@ -96,6 +96,9 @@ for (vector<Driver*> CopyOfDriverQueue = driver_list; !CopyOfDriverQueue.empty()
     if(!CopyOfDriverQueue.back()->isDelivering() && !CopyOfDriverQueue.back()->isDelivering() && CopyOfDriverQueue.back()->loggedIn()){
     cout << "\t";
     cout << CopyOfDriverQueue.back()->getName();
+        if(CopyOfDriverQueue.back()-> arrival().getHour() != -1 && CopyOfDriverQueue.back()-> arrival().getMinute() != -1){
+            cout << " Time arrived: " << CopyOfDriverQueue.back()-> arrival().getHour() << ":" << CopyOfDriverQueue.back()-> arrival().getMinute();
+        }
     }
 }
 
@@ -113,15 +116,6 @@ for (vector<Driver*> CopyOfDriverQueue = driver_list; !CopyOfDriverQueue.empty()
 }
 
 cout << "\n";
-
-cout << "Drivers coming back to the resturant: " << endl;
-for (vector<Driver*> CopyOfDriverQueue = driver_list; !CopyOfDriverQueue.empty(); CopyOfDriverQueue.pop_back()){
-    if(CopyOfDriverQueue.back()->isComingback()){
-    cout << "\t";
-    cout << "Driver: " << CopyOfDriverQueue.back()->getName() << " " << " Time arrived: " << CopyOfDriverQueue.back()->arrival().getHour() << ":" << CopyOfDriverQueue.back()->arrival().getMinute();
-    }
-}
-
 
 }
 
@@ -169,12 +163,11 @@ void Restaurant::deliver(Driver* driver, const Time time, const float tip)
 //pre-condition: none
 //post-condition: the order carried by the driver is delivered at the given time. The driver receives the given tip.
 {
-
-    (*driver).deliver(time, tip);
+    this->driver_list.back()->deliver(time, tip);
     totalOrders++;
-    Time tempTime(0, 0);
-    totalOrderTime += tempTime.elapsedTime(tempTime, (*driver).getOrder().getDeliverTime());
-
+    Time tempTime;
+    tempTime.setTime(0, 0);
+    totalOrderTime += tempTime.elapsedTime(tempTime, this->driver_list.back()->getOrder().getDeliverTime()); //Seg-fault here
 }
 
 float Restaurant::averageOrderTime() const
