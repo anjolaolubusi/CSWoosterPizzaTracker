@@ -62,7 +62,18 @@ return minute;
 
 
 ostream& operator << (ostream& out, Time& myTime){
-cout << myTime.getHour() << ":" << myTime.getMinute();
+if(myTime.getHour() < 10){
+    cout << "0" << myTime.getHour() << ":";
+} else {
+cout << myTime.getHour() << ":";
+}
+
+if(myTime.getMinute() < 10){
+    cout << "0" << myTime.getMinute();
+} else {
+    cout << myTime.getMinute();
+}
+
 }
 
 Time& Time::operator= (Time& otherTime){

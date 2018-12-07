@@ -130,7 +130,7 @@ void Driver::login() throw(logic_error)
 {
 
     if (isLoggedIn)
-        throw logic_error("Driver is already logged in");
+        cout << "Driver is already logged in";
 
     isLoggedIn = true;
 }
@@ -141,7 +141,7 @@ void Driver::logout() throw(logic_error)
 {
     if (!isLoggedIn)
     {
-        throw logic_error("Driver is already logged out");
+        cout << "Driver is already logged out";
     }
 
     isLoggedIn = false;
@@ -152,10 +152,10 @@ void Driver::logout() throw(logic_error)
 void Driver::depart( Time time, const Order o) throw (logic_error)
 {
     if (!isLoggedIn)
-        throw logic_error("Driver is not logged in");
+        cout << "Driver is not logged in";
 
     if (isOnDelivery)
-        throw logic_error("Driver is already delivering");
+        cout << "Driver is already delivering";
 
     isOnDelivery = true;
     timeDepart = time;
@@ -168,13 +168,13 @@ void Driver::depart( Time time, const Order o) throw (logic_error)
 void Driver::deliver(Time time, const float tip) throw(logic_error)
 {
     if (!isOnDelivery)
-        throw logic_error("Driver is not on delivery");
+        cout << "Driver is not on delivery";
 
     if (hasDelivered)
-        throw logic_error("Order has been delivered");
+        cout << "Order has been delivered";
 
     if (tip < 0)
-        throw logic_error("Tip has to be equal to or greater than 0");
+       cout << "Tip has to be equal to or greater than 0";
 
     int newHour = time.getHour();
     int newMinute = time.getMinute();
@@ -191,10 +191,10 @@ void Driver::deliver(Time time, const float tip) throw(logic_error)
 void Driver::arrive(Time time) throw (logic_error)
 {
     if (!isOnDelivery)
-        throw logic_error("Driver is not on delivery");
+        cout << "Driver is not on delivery";
 
     if (!hasDelivered)
-        throw logic_error("Order has not been delivered");
+        cout << "Order has not been delivered";
 
     isOnDelivery = false;
     timeArrive = time;
@@ -242,7 +242,7 @@ float Driver::getTotalTips() const
 Order Driver::getOrder() const throw(logic_error)
 {
     if (!isOnDelivery)
-        throw logic_error("Driver is not on delivery");
+        cout << "Driver is not on delivery";
 
     return order;
 }

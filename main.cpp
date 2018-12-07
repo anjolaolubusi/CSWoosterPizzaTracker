@@ -34,12 +34,10 @@ int main()
 
     string info; //a string to hold an order's info
 
-
-    Commander(Dominios);
-/**
     print_help();
-    cin >> command;
-**/
+    cout << "\n";
+    Commander(Dominios);
+
 }
 
 //Command line function:
@@ -61,30 +59,49 @@ int Commander(Restaurant myRestaurant){
     }else if(cmd.substr(0, blankspace) == "order"){
         if(driver != ""){
         blankspace = cmd.find_first_of(":"); //
-        Time timeMan;
-        timeMan.setTime(stoi(cmd.substr(blankspace-3, blankspace-1)), stoi(cmd.substr(blankspace+1, blankspace+3)));
-        order(timeMan, cmd.substr(blankspace+4), myRestaurant);
-        Commander(myRestaurant);
+        if(blankspace != -1){
+            Time timeMan;
+            timeMan.setTime(stoi(cmd.substr(blankspace-3, blankspace-1)), stoi(cmd.substr(blankspace+1, blankspace+3)));
+            order(timeMan, cmd.substr(blankspace+4), myRestaurant);
+            Commander(myRestaurant);
+            }else {
+            cout << "Please retype your time with a : to separate hours and minutes";
+            Commander(myRestaurant);
+            }
         } else {
         cout << "Please log in" << endl;
         Commander(myRestaurant);
         }
     }else if(cmd.substr(0, blankspace) == "logout"){
+        if(blankspace != -1){
         logout(cmd.substr(blankspace+1), myRestaurant);
         Commander(myRestaurant);
+        } else {
+        cout << "Please put the user's name after the logout" << endl;
+        }
     }else if(cmd.substr(0, blankspace) == "serve"){
         Time timeMan;
         blankspace = cmd.find_first_of(":");
-        timeMan.setTime(stoi(cmd.substr(blankspace-3, blankspace-1)), stoi(cmd.substr(blankspace+1, blankspace+3)));
-        serve(timeMan, myRestaurant);
-        Commander(myRestaurant);
+        if(blankspace != -1){
+            timeMan.setTime(stoi(cmd.substr(blankspace-3, blankspace-1)), stoi(cmd.substr(blankspace+1, blankspace+3)));
+            serve(timeMan, myRestaurant);
+            Commander(myRestaurant);
+        }else {
+            cout << "Please retype your time with a : to separate hours and minutes";
+            Commander(myRestaurant);
+            }
     }else if(cmd.substr(0, blankspace) == "depart"){
     if(driver != ""){
         blankspace = cmd.find_first_of(":"); //
-        Time timeMan;
-        timeMan.setTime(stoi(cmd.substr(blankspace-3, blankspace-1)), stoi(cmd.substr(blankspace+1, blankspace+3)));
-        depart(timeMan, cmd.substr(blankspace+4), myRestaurant);
-        Commander(myRestaurant);
+        if(blankspace != -1){
+            Time timeMan;
+            timeMan.setTime(stoi(cmd.substr(blankspace-3, blankspace-1)), stoi(cmd.substr(blankspace+1, blankspace+3)));
+            depart(timeMan, cmd.substr(blankspace+4), myRestaurant);
+            Commander(myRestaurant);
+        }else {
+            cout << "Please retype your time with a : to separate hours and minutes";
+            Commander(myRestaurant);
+            }
         } else {
         cout << "Please log in" << endl;
         Commander(myRestaurant);
@@ -92,14 +109,19 @@ int Commander(Restaurant myRestaurant){
     }else if(cmd.substr(0, blankspace) == "deliver"){
         if(driver != ""){
         blankspace = cmd.find_first_of(":"); //
-        Time timeMan;
-        timeMan.setTime(stoi(cmd.substr(blankspace-3, blankspace-1)), stoi(cmd.substr(blankspace+1, blankspace+3)));
-        float myTip = stof(cmd.substr(cmd.rfind(" ")+1));
-        cmd = cmd.substr(blankspace);
-        blankspace = cmd.find(" ");
-        string NewDriver = cmd.substr(blankspace+1, cmd.rfind(" ")-3);
-        deliver(timeMan, NewDriver, myTip, myRestaurant);
-        Commander(myRestaurant);
+        if(blankspace != -1){
+            Time timeMan;
+            timeMan.setTime(stoi(cmd.substr(blankspace-3, blankspace-1)), stoi(cmd.substr(blankspace+1, blankspace+3)));
+            float myTip = stof(cmd.substr(cmd.rfind(" ")+1));
+            cmd = cmd.substr(blankspace);
+            blankspace = cmd.find(" ");
+            string NewDriver = cmd.substr(blankspace+1, cmd.rfind(" ")-3);
+            deliver(timeMan, NewDriver, myTip, myRestaurant);
+            Commander(myRestaurant);
+        }else {
+            cout << "Please retype your time with a : to separate hours and minutes";
+            Commander(myRestaurant);
+            }
         } else {
         cout << "Please log in" << endl;
         Commander(myRestaurant);
@@ -107,10 +129,15 @@ int Commander(Restaurant myRestaurant){
     }else if(cmd.substr(0, blankspace) == "arrive"){
         if(driver != ""){
         blankspace = cmd.find_first_of(":"); //
-        Time timeMan;
-        timeMan.setTime(stoi(cmd.substr(blankspace-3, blankspace-1)), stoi(cmd.substr(blankspace+1, blankspace+3)));
-        arrive(timeMan, cmd.substr(blankspace+4), myRestaurant);
-        Commander(myRestaurant);
+        if(blankspace != -1){
+            Time timeMan;
+            timeMan.setTime(stoi(cmd.substr(blankspace-3, blankspace-1)), stoi(cmd.substr(blankspace+1, blankspace+3)));
+            arrive(timeMan, cmd.substr(blankspace+4), myRestaurant);
+            Commander(myRestaurant);
+         }else {
+            cout << "Please retype your time with a : to separate hours and minutes";
+            Commander(myRestaurant);
+            }
         } else {
         cout << "Please log in" << endl;
         Commander(myRestaurant);
@@ -139,7 +166,7 @@ void login(string driver, Restaurant& arestaurant) throw (logic_error) {
         arestaurant.addDriver(aDriver);
     }
     else
-        throw logic_error("The driver is already logged in");
+        cout << "The driver is already logged in";
 }
 
 
@@ -148,7 +175,7 @@ void logout(string driver, Restaurant& arestaurant) throw (logic_error){
     Driver* DriverPtr =  arestaurant.getDriver(driver);
 
     if (DriverPtr == nullptr) {
-        throw logic_error("Driver does not exist");
+        cout << "Driver does not exist";
     }
     (*DriverPtr).logout();
 }
@@ -185,8 +212,21 @@ void print_help()
     cout << "  summary : Statistics of all drivers and orders" << endl;
     cout << "  quit : Terminates the program" << endl;
     cout << endl;
-}
+    cout << "Would you like to see an test case? (Yes or No)";
 
+    string answer;
+    cin >> answer;
+    getline(cin, answer);
+    //tolower(answer);
+    if(answer == "yes"){
+        cout << "Command: login a"
+                "Command: order 01:00 large peperoni pizza"
+                "Command: depart Frank 10:36" << endl;
+    }
+    else if (answer != "no"){
+        cout << "Please enter Yes or no: ";
+}
+}
 void order(const Time& time, const string info, Restaurant& arestaurant)
 {
     Order* anOrder = new Order(time,info);

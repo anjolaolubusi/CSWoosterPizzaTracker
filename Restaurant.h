@@ -168,7 +168,7 @@ void Restaurant::serveNextOrder(Time timeman) throw (logic_error)
 
 {
     if (order_queue.size() == 0)
-        throw logic_error("No uncooked order");
+        cout << "No uncooked order";
 
     order_queue.front()->SetServeTime(timeman.getHour(), timeman.getMinute());
     delivery_queue.push_back(order_queue.front()); //adds next order to delivery queue
@@ -180,7 +180,7 @@ Order* Restaurant::departNextOrder() throw (logic_error)
 //post-condition: removes the oldest order from the departure queue and returns it
 {
     if (delivery_queue.size() == 0)
-        throw logic_error("No order to be delivered");
+        cout << "No order to be delivered";
 
     Order* departing_order = delivery_queue.front();
     delivery_queue.pop_front();
@@ -231,7 +231,7 @@ Driver* Restaurant::getDriver(const string name) const
 void Restaurant::addDriver(Driver* driver) throw (logic_error)
 {
     if (getDriver((*driver).getName()) != nullptr)
-        throw logic_error("Driver with this name already exists");
+        cout << "Driver with this name already exists";
 
     driver_list.push_back(driver); //adds driver to driver list
 }
